@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Kehadiran;
+
 
 class Siswa extends Model
 {
@@ -33,5 +35,9 @@ class Siswa extends Model
     public function NotifikasiKehadiran()
     {
         return $this->hasMany(NotifikasiKehadiran::class, 'siswa_id');
+    }
+    public function kehadiran()
+    {
+        return $this->hasMany(Kehadiran::class,);
     }
 }

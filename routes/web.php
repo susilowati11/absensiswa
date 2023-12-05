@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\notifikasikehadiranController;
+use App\Http\Controllers\KehadiranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,8 +45,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [notifikasikehadiranController::class, 'index'])->name('notifikasikehadiran.index');
         Route::post('notifikasikehadiran/store', [NotifikasiKehadiranController::class, 'store'])->name('notifikasikehadiran.store');
         Route::put('notifikasikehadiran/update/{id} ',[ notifikasiKehadirancontroller::class,'update'])->name('notifikasikehadiran.update');
-        Route::delete('/destroy/{id}', [KelasController::class, 'destroy'])->name('destroy');
+        Route::delete('/destroy/{id}', [notifikasikehadiranController::class, 'destroy'])->name('notifikasikehadiran.destroy');
         // Tambahkan rute lainnya sesuai kebutuhan
+    });
+    Route::prefix('kehadiran')->group(function () {
+        Route::get('/', [KehadiranController::class, 'index'])->name('kehadiran.kehadiran');
+        Route::post('/kehadiran/kehadiran/store', [KehadiranController::class, 'store'])->name('kehadiran.store');
+        Route::put('/update/{id}', [KehadiranController::class, 'update'])->name('kehadiran.update');
+        Route::delete('/destroy/{id}', [KehadiranController::class, 'destroy'])->name('kehadiran.destroy');
     });
     
     

@@ -72,8 +72,8 @@
 
 
                     <a href="{{ route('kelas.kelas') }}" class="nav-item nav-link"><i
-                            class="fa fa-chalkboard"></i>Kelas</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-clipboard-check"></i>Kehadiran</a>
+                            class="fa fa-chalkboard"></i>Kelas</a>       
+                    <a href="{{route('kehadiran.kehadiran')}}" class="nav-item nav-link"><i class="fa fa-clipboard-check"></i>Kehadiran</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-history"></i>Riwayat Kehadiran</a>
                     <a href="{{ route('notifikasikehadiran.index') }}"
                         class="nav-it                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    em nav-link"><i
