@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Siswa;
 use Illuminate\Database\Eloquent\Model;
-use app\Models\Siswa;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Kehadiran extends Model
 {
@@ -18,11 +18,12 @@ class Kehadiran extends Model
         'waktu_masuk',
         'waktu_pulang',
         'catatan',
+        'riwayat',
     ];
 
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class, 'siswa_id', 'id');
+        return $this->belongsTo(Siswa::class);
     }
     
 }

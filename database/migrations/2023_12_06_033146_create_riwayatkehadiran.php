@@ -11,22 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Riwayatkehadiran', function (Blueprint $table) {
+        Schema::create('riwayatkehadiran', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('siswa_id');
+            $table->string('nama_siswa');
             $table->date('tanggal');
+            $table->date('status_kehadiran');
             $table->time('waktu_masuk');
             $table->time('waktu_pulang');
-            $table->text('catatan')->nullable();
+            $table->text('catatan');
             $table->timestamps();
-
-            // Menambahkan kunci asing
-            $table->foreign('siswa_id')->references('id')->on('siswa')->onDelete('cascade');
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
-        Schema::dropIfExists('riwayat');
+        Schema::dropIfExists('riwayatkehadiran');
     }
 };

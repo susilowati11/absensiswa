@@ -22,17 +22,16 @@ class KelasController extends Controller
             'jurusan' => 'required|string|max:255',
             'tingkat_kelas' => 'required|string|max:255',
         ]);
-
-
-
+    
+        // Create a new Kelas instance
         $kelas = Kelas::create([
             'jurusan' => $request->jurusan,
             'tingkat_kelas' => $request->tingkat_kelas
         ]);
-
-
-        return redirect()->back()->with('success', 'Data kelas berhasil disimpan.');
+    
+        return redirect()->back()->with('success', 'Kelas berhasil disimpan.');
     }
+    
 
     public function update(Request $request, $id)
     {

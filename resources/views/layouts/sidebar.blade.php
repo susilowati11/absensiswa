@@ -30,7 +30,7 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <!-- Tambahkan Bootstrap dan jQuery di sini -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <!-- Tambahkan CSS Bootstrap di sini -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
@@ -52,39 +52,30 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.jpg" alt=""
+                        <img class="rounded-circle" src="img/logosmk.jpg" alt=""
                             style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">MEMEI</h6>
+                        {{-- <h6 class="mb-0">MEMEI</h6> --}}
                         <span>Admin</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="{{ route('home') }}" class="nav-item nav-link active"><i
-                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-
-                    <a href="{{ route('siswa.siswa') }}" class="nav-item nav-link "><i
-                            class="fa fa-users "></i>Siswa</a>
-
-
-                    <a href="{{ route('kelas.kelas') }}" class="nav-item nav-link"><i
-                            class="fa fa-chalkboard"></i>Kelas</a>       
-                    <a href="{{route('kehadiran.kehadiran')}}" class="nav-item nav-link"><i class="fa fa-clipboard-check"></i>Kehadiran</a>
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-history"></i>Riwayat Kehadiran</a>
-                    <a href="{{ route('notifikasikehadiran.index') }}"
-                        class="nav-it                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    em nav-link"><i
-                            class="fa fa-bell "></i>Notifikasi</a>
-
+                    <a href="{{ route('home') }}" class="nav-item nav-link {{ Request::is('home*') ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="{{ route('siswa.siswa') }}" class="nav-item nav-link {{ Request::is('siswa*') ? 'active' : '' }}"><i class="fa fa-users"></i>Siswa</a>
+                    <a href="{{ route('kelas.kelas') }}" class="nav-item nav-link {{ Request::is('kelas*') ? 'active' : '' }}"><i class="fa fa-chalkboard"></i>Kelas</a>
+                    <a href="{{ route('kehadiran.kehadiran') }}" class="nav-item nav-link {{ Request::is('kehadiran*') ? 'active' : '' }}"><i class="fa fa-clipboard-check"></i>Kehadiran</a>
+                    <a href="{{ route('riwayatkehadiran.riwayatkehadiran') }}" class="nav-item nav-link {{ Request::is('riwayatkehadiran*') ? 'active' : '' }}"><i class="fa fa-history"></i>Riwayat Kehadiran</a>
+                    <a href="{{ route('notifikasikehadiran.index') }}" class="nav-item nav-link {{ Request::is('notifikasikehadiran*') ? 'active' : '' }}"><i class="fa fa-bell"></i>Notifikasi</a>
                 </div>
             </nav>
         </div>
         @yield('content')
     </div>
-
+    
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('kehadiran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('siswa_id');
+            $table->foreignId('siswa_id')->nullable()->constrained('siswa');
             $table->date('tanggal');
             $table->enum('status_kehadiran', ['Hadir', 'Tidak Hadir', 'Izin'])->default('Hadir');
             $table->time('waktu_masuk');
             $table->time('waktu_pulang');
             $table->string('catatan');
+            $table->datetime('riwayat');
             $table->timestamps();
         });
     }

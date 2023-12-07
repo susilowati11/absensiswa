@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
-use App\Http\Controllers\notifikasikehadiranController;
 use App\Http\Controllers\KehadiranController;
+use App\Http\Controllers\RiwayatkehadiranController;
+use App\Http\Controllers\notifikasikehadiranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,9 +52,18 @@ Route::middleware('auth')->group(function () {
     Route::prefix('kehadiran')->group(function () {
         Route::get('/', [KehadiranController::class, 'index'])->name('kehadiran.kehadiran');
         Route::post('/kehadiran/kehadiran/store', [KehadiranController::class, 'store'])->name('kehadiran.store');
-        Route::put('/update/{id}', [KehadiranController::class, 'update'])->name('kehadiran.update');
+        Route::put('kehadiran/update/{id}', [KehadiranController::class, 'update'])->name('kehadiran.update');
         Route::delete('/destroy/{id}', [KehadiranController::class, 'destroy'])->name('kehadiran.destroy');
+        Route::get('/search', 'SearchController@search')->name('search');
     });
+    
+    Route::prefix('riwayatkehadiran')->group(function () {
+        Route::get('/', [RiwayatkehadiranController::class, 'index'])->name('riwayatkehadiran.riwayatkehadiran');
+        Route::post('/store', [RiwayatkehadiranController::class, 'store'])->name('riwayatkehadiran.store');
+
+        // Route::get('/riwayatkehadiran/search', [RiwayatkehadiranController::class,'search']);
+    });
+    
     
     
 });
