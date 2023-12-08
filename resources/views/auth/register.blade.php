@@ -69,6 +69,55 @@
                             </div>
                         </div>
                     </form>
+                    <style>
+                        body {
+                            background-color: #f8f9fa; /* Warna latar belakang */
+                        }
+                    
+                        .card {
+                            margin-top: 50px;
+                            border: 1px solid #ddd; /* Garis tepi kartu */
+                            border-radius: 8px; /* Sudut bulat kartu */
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan kartu */
+                        }
+                    
+                        .card-header {
+                            background-color: #007bff; /* Warna latar belakang header kartu */
+                            color: #fff; /* Warna teks header kartu */
+                            border-bottom: 1px solid #0069d9; /* Garis tepi bawah header kartu */
+                        }
+                    
+                        .card-body {
+                            padding: 20px; /* Ruang di dalam kartu */
+                        }
+                    
+                        label {
+                            font-weight: bold;
+                            margin-bottom: 0.5rem;
+                        }
+                    
+                        input {
+                            margin-bottom: 1rem;
+                        }
+                    
+                        .btn-primary {
+                            background-color: #007bff; /* Warna tombol login */
+                            border-color: #007bff;
+                        }
+                    
+                        .btn-primary:hover {
+                            background-color: #0056b3; /* Warna hover tombol login */
+                            border-color: #0056b3;
+                        }
+                    
+                        .btn-link {
+                            color: #007bff; /* Warna tautan lupa kata sandi */
+                        }
+                    
+                        .btn-link:hover {
+                            text-decoration: underline; /* Garis bawah pada hover tautan lupa kata sandi */
+                        }
+                    </style>
                 </div>
             </div>
         </div>

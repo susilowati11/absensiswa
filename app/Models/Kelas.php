@@ -18,14 +18,16 @@ class Kelas extends Model
 
     
 
-    public function siswas()
+    public function siswa()
     {
-        return $this->hasMany(Siswa::class, 'kelas_id');
+        return $this->hasMany(Siswa::class);
     }
 
     public function notifikasikehadirans()
     {
         return $this->hasMany(NotifikasiKehadiran::class);
     }
+
+    
 
 }

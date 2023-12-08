@@ -10,7 +10,7 @@ class RiwayatkehadiranController extends Controller
     {
         $riwayatKehadiran = Kehadiran::all();
         // dd($riwayatKehadiran);
-        return view('riwayatkehadiran.index', compact('riwayatKehadiran'));
+        return view('admin.riwayatkehadiran', compact('riwayatKehadiran'));
     }    
 
     public function create()
@@ -28,5 +28,6 @@ class RiwayatkehadiranController extends Controller
     // return view('admin.riwayatkehadiran.riwayatkehadiran',['riwayatkehadiran'=> $riwayatKehadiran]);
    
    
+  
 }
 

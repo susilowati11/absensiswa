@@ -21,6 +21,7 @@ class Siswa extends Model
         'alamat',
         'nomor_telepon',
         'email',
+        'notifikasikehadiran',
         'foto'
     ];
 
@@ -39,5 +40,9 @@ class Siswa extends Model
     public function kehadiran()
     {
         return $this->hasMany(Kehadiran::class,);
+    }
+    public function notifikasiSiswa()
+    {
+        return $this->hasMany(NotifikasiSiswa::class, 'siswa_id');
     }
 }

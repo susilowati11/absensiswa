@@ -10,9 +10,9 @@ class KelasController extends Controller
     public function index()
     {
         $kelas = Kelas::all();
-        
 
-        return view('kelas.index', compact('kelas'));
+
+        return view('Admin.kelas', compact('kelas'));
     }
 
     public function store(Request $request)
@@ -20,18 +20,22 @@ class KelasController extends Controller
         // Validate the incoming request data
         $request->validate([
             'jurusan' => 'required|string|max:255',
-            'tingkat_kelas' => 'required|string|max:255',
+            'tingkat_kelas' => 'required|numeric|min:1|max:255',
+
+        ], [
+            'jurusan.required' => 'Kolom jurusan harus diisi.',
+            'tingkat_kelas.required' => 'Kolom tingkat kelas harus diisi.',
         ]);
-    
+
         // Create a new Kelas instance
         $kelas = Kelas::create([
             'jurusan' => $request->jurusan,
             'tingkat_kelas' => $request->tingkat_kelas
         ]);
-    
+
         return redirect()->back()->with('success', 'Kelas berhasil disimpan.');
     }
-    
+
 
     public function update(Request $request, $id)
     {
@@ -63,21 +67,21 @@ class KelasController extends Controller
     public function destroy($id)
     {
         try {
-            // Menggunakan metode findOrFail untuk menemukan siswa berdasarkan ID
+            // Menggunakan metode findOrFail untuk menemukan kelas berdasarkan ID
             $kelas = Kelas::findOrFail($id);
 
-            // Menghapus foto dari penyimpanan jika ada
-            // if ($siswa->foto) {
-            //     Storage::delete('public/foto/' . $siswa->foto);
-            // }
+            // Mengecek apakah kelas masih memiliki siswa terkait
+            if ($kelas->siswa()->exists()) {
+                return redirect()->back()->with('error', 'Data masih digunakan');
+            }
 
-            // Menghapus siswa dari database
+            // Menghapus kelas dari database
             $kelas->delete();
 
-            return redirect()->back()->with('success', 'Siswa berhasil dihapus');
+            return redirect()->back()->with('success', 'Kelas berhasil dihapus');
         } catch (\Exception $e) {
-            // Jika terjadi kes
+            // Tangani kesalahan di sini
+            return redirect()->back()->with('error', 'Gagal menghapus kelas: ' . $e->getMessage());
         }
     }
-
 }

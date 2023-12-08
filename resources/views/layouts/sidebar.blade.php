@@ -19,7 +19,7 @@
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- Libraries Stylesheet -->
     <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
@@ -60,22 +60,47 @@
                     </div>
                     <div class="ms-3">
                         {{-- <h6 class="mb-0">MEMEI</h6> --}}
-                        <span>Admin</span>
+                        <span>{{Auth::user()->role}}</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="{{ route('home') }}" class="nav-item nav-link {{ Request::is('home*') ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="{{ route('siswa.siswa') }}" class="nav-item nav-link {{ Request::is('siswa*') ? 'active' : '' }}"><i class="fa fa-users"></i>Siswa</a>
-                    <a href="{{ route('kelas.kelas') }}" class="nav-item nav-link {{ Request::is('kelas*') ? 'active' : '' }}"><i class="fa fa-chalkboard"></i>Kelas</a>
-                    <a href="{{ route('kehadiran.kehadiran') }}" class="nav-item nav-link {{ Request::is('kehadiran*') ? 'active' : '' }}"><i class="fa fa-clipboard-check"></i>Kehadiran</a>
-                    <a href="{{ route('riwayatkehadiran.riwayatkehadiran') }}" class="nav-item nav-link {{ Request::is('riwayatkehadiran*') ? 'active' : '' }}"><i class="fa fa-history"></i>Riwayat Kehadiran</a>
-                    <a href="{{ route('notifikasikehadiran.index') }}" class="nav-item nav-link {{ Request::is('notifikasikehadiran*') ? 'active' : '' }}"><i class="fa fa-bell"></i>Notifikasi</a>
+                    @if (Auth::user()->role == 'admin')
+                        <a href="{{ route('home') }}"
+                            class="nav-item nav-link {{ Request::is('/*') ? 'active' : '' }}"><i
+                                class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="{{ route('kelas') }}"
+                            class="nav-item nav-link {{ Request::is('kelas*') ? 'active' : '' }}"><i
+                                class="fa fa-chalkboard"></i>Kelas</a>
+                        <a href="{{ route('riwayatkehadiran') }}"
+                            class="nav-item nav-link {{ Request::is('riwayatkehadiran*') ? 'active' : '' }}"><i
+                                class="fa fa-history"></i>Riwayat Kehadiran</a>
+                        <a href="{{ route('notifikasikehadiran') }}"
+                            class="nav-item nav-link {{ Request::is('notifikasikehadiran*') ? 'active' : '' }}"><i
+                                class="fa fa-bell"></i>Notifikasi</a>
+                    @else
+                        <a href="{{ route('home') }}"
+                            class="nav-item nav-link {{ Request::is('/*') ? 'active' : '' }}"><i
+                                class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="{{ route('siswa') }}"
+                            class="nav-item nav-link {{ Request::is('siswa*') ? 'active' : '' }}"><i
+                                class="fa fa-users"></i>Siswa</a>
+                        <a href="{{ route('kehadiran') }}"
+                            class="nav-item nav-link {{ Request::is('kehadiran*') ? 'active' : '' }}"><i
+                                class="fa fa-clipboard-check"></i>Kehadiran</a>
+
+                        <a href="{{ route('notifikasi-siswa') }}" class="nav-item nav-link"><i
+                                class="fa fa-bell"></i>Notifikasi Siswa</a>
+                    @endif
+
+
+
+
                 </div>
             </nav>
         </div>
         @yield('content')
     </div>
-    
+
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -14,17 +14,10 @@ class KehadiranController extends Controller
         $kehadiran = Kehadiran::all();
         $siswa = Siswa::all();
 // dd($kehadiran);
-        return view('kehadiran.index', compact('kehadiran', 'siswa'));
-    }
+    //     return view('kehadiran.index', compact('kehadiran', 'siswa'));
+    // }
 
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
-
-        // Lakukan logika pencarian sesuai kebutuhan Anda
-
-        // Misalnya, mengembalikan hasil pencarian ke tampilan
-        return view('search_results', ['query' => $query]);
+        return view('User.kehadiran', compact('kehadiran', 'siswa'));
     }
 
     public function store(Request $request)
@@ -97,11 +90,18 @@ class KehadiranController extends Controller
     {
         try {
             $kehadiran = Kehadiran::findOrFail($id);
+    
+            // Mengecek apakah kehadiran masih terkait dengan siswa atau relasi lain
+            if ($kehadiran->siswa()->exists()) {
+                return redirect()->back()->with('error', 'Kehadiran tidak dapat dihapus karena masih terkait dengan siswa atau relasi lain.');
+            }
+    
+            // Menghapus kehadiran dari database
             $kehadiran->delete();
-
+    
             return redirect()->route('kehadiran.kehadiran')->with('success', 'Kehadiran berhasil dihapus');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus kehadiran');
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus kehadiran: ' . $e->getMessage());
         }
     }
-}
+}    
