@@ -4,24 +4,17 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\facades\auth;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class adminmiddleware
+class AdminMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next): Response
+    public function handle($request, Closure $next)
     {
-        if(auth::check()){
-            if (auth::user()->role === 'admin'){
-                return $next($request);
-            }
-            return redirect()->back()->with('eror',"anda tidak memiliki akses ke halaman ini");
+        if (Auth::check() && Auth::user()->role === 'admin') {
+            return $next($request);
         }
-       return redirect ('/')->with('eror',"anda harus login terlwbih dahulu");
+
+        return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman ini');
     }
 }

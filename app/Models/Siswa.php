@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Kehadiran;
-
+use App\Models\User;
 
 class Siswa extends Model
 {
@@ -22,7 +22,9 @@ class Siswa extends Model
         'nomor_telepon',
         'email',
         'notifikasikehadiran',
-        'foto'
+        'foto',
+        'user_id',
+        'kehadiran',
     ];
 
     public function kelas()
@@ -39,10 +41,15 @@ class Siswa extends Model
     }
     public function kehadiran()
     {
-        return $this->hasMany(Kehadiran::class,);
+        return $this->belongsTo(Kehadiran::class,);
     }
     public function notifikasiSiswa()
     {
         return $this->hasMany(NotifikasiSiswa::class, 'siswa_id');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
+

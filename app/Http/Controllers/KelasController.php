@@ -70,18 +70,18 @@ class KelasController extends Controller
             // Menggunakan metode findOrFail untuk menemukan kelas berdasarkan ID
             $kelas = Kelas::findOrFail($id);
 
-            // Mengecek apakah kelas masih memiliki siswa terkait
-            if ($kelas->siswa()->exists()) {
-                return redirect()->back()->with('error', 'Data masih digunakan');
-            }
-
+            // // Mengecek apakah kelas masih memiliki siswa terkait
+            // if ($kelas->siswa()->exists()) {
+            // }
+            
             // Menghapus kelas dari database
             $kelas->delete();
-
+            
             return redirect()->back()->with('success', 'Kelas berhasil dihapus');
         } catch (\Exception $e) {
             // Tangani kesalahan di sini
-            return redirect()->back()->with('error', 'Gagal menghapus kelas: ' . $e->getMessage());
+            // return redirect()->back()->with('error', 'Gagal menghapus kelas: ' );
+            return redirect()->back()->with('error', 'Data masih digunakan');
         }
     }
 }

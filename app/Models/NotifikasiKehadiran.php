@@ -4,26 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Siswa;
+use App\Models\User;
 
 class NotifikasiKehadiran extends Model
 {
     use HasFactory;
     protected $table = 'notifikasikehadiran';
     protected $fillable = [
-        'siswa_id',
+        'nama_siswa',
         'kelas_id',
         'jenis_notifikasi',
         'tanggal_notifikasi',
         'waktu_notifikasi',
         'status_pengiriman',
         'informasi_tambahan',
+        'user_id',
     ];
 
-    // Relasi ke model Siswa
-    public function siswa()
-    {
-        return $this->belongsTo(Siswa::class, 'siswa_id');
-    }
+    // // Relasi ke model Siswa
+    // public function siswa()
+    // {
+    //     return $this->belongsTo(Siswa::class, 'siswa_id');
+    // }
 
     public function kelas()
     {
@@ -35,6 +38,6 @@ class NotifikasiKehadiran extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class, 'siswa_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 }

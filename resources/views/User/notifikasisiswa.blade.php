@@ -99,7 +99,7 @@
                     @foreach ($notifikasiSiswa as $notifikasi)
                         <tr>
                             <td class="text-center">{{ $notifikasi->id }}</td>
-                            <td class="text-center">{{ optional($notifikasi->siswa)->nama_siswa }}</td>
+                            <td class="text-center">{{ $notifikasi->user->name }}</td>
                             <td class="text-center">{{ $notifikasi->jenis_notifikasi }}</td>
                             <td class="text-center">{{ $notifikasi->informasi_tambahan }}</td> <!-- Tambahan: Menampilkan catatan -->
                         </tr>

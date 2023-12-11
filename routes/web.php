@@ -6,10 +6,11 @@ use App\Http\Middleware\usermiddleware;
 use App\Http\Middleware\adminmiddleware;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\DatasiswaController;
 use App\Http\Controllers\KehadiranController;
-use App\Http\Controllers\RiwayatkehadiranController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\NotifikasiSiswaController;
+use App\Http\Controllers\RiwayatkehadiranController;
 use App\Http\Controllers\notifikasikehadiranController;
 
 /*
@@ -74,6 +75,10 @@ Route::middleware('auth')->group(function () {
         Route::prefix('riwayatkehadiran')->group(function () {
             Route::get('/', [RiwayatkehadiranController::class, 'index'])->name('riwayatkehadiran');
             Route::post('/store', [RiwayatkehadiranController::class, 'store'])->name('riwayatkehadiran.store');
+        });
+        Route::prefix('datasiswa')->group(function () {
+            Route::get('/', [DatasiswaController::class, 'index'])->name('datasiswa');
+            Route::post('/store', [DatasiswaController::class, 'store'])->name('datasiswa.store');
         });
     });
 });

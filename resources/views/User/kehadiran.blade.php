@@ -76,13 +76,13 @@
                         <a href="#" class="dropdown-item text-center">See all notifications</a>
                     </div>
                 </div> --}}
-                <!-- Tambahkan formulir logout di dalam dropdown-menu -->
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-primary` text-center">Logout</button>
-                </form>
+                    <!-- Tambahkan formulir logout di dalam dropdown-menu -->
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-primary` text-center">Logout</button>
+                    </form>
 
-            </div>
+                </div>
 
         </nav>
 
@@ -93,32 +93,37 @@
         <table class="table mt-1 ms-1">
             <thead class="table-light">
 
-            <thead>
-                <tr>
-                    <th class="text-center">#</th>
-                    <th class="text-center">Nama Siswa</th>
-                    <th class="text-center">Tanggal</th>
-                    <th class="text-center">Status Kehadiran</th>
-                    <th class="text-center">Waktu Masuk</th>
-                    <th class="text-center">Waktu Pulang</th>
-                    <th class="text-center">Catatan</th>
-                    <th class="text-center">Aksi</th>
-                </tr>
-            </thead>
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Nama Siswa</th>
+                        <th class="text-center">Kelas</th>
+                        <th class="text-center">Jurusan</th>
+                        <th class="text-center">Tanggal</th>
+                        <th class="text-center">Status Kehadiran</th>
+                        <th class="text-center">Waktu Masuk</th>
+                        <th class="text-center">Waktu Pulang</th>
+                        <th class="text-center">Catatan</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
             <tbody>
                 @foreach ($kehadiran as $absis)
                     <tr>
                         <th class="text-center">{{ $loop->iteration }}</th>
-                        <td class="text-center">{{ $absis->siswa->nama_siswa }}</td>
+                        <td class="text-center">{{ $absis->nama_siswa }}</td>
+                        <td class="text-center">{{ $absis->kelas->tingkat_kelas }}</td>
+                        <td class="text-center">{{ $absis->kelas->jurusan }}</td>
                         <td class="text-center">{{ $absis->tanggal }}</td>
                         <td class="text-center">{{ $absis->status_kehadiran }}</td>
                         <td class="text-center">{{ $absis->waktu_masuk }}</td>
                         <td class="text-center">{{ $absis->waktu_pulang }}</td>
                         <td class="text-center">{{ $absis->catatan }}</td>
-
+                       
                         <td>
                             <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#editKehadiranModal-{{ $absis->id }}" data-link="{{ $absis->siswa_id }}">
+                                data-bs-target="#editKehadiranModal-{{ $absis->id }}"
+                                data-link="{{ $absis->siswa_id }}">
                                 Edit
                             </button>
                             <form id="deleteForm{{ $absis->id }}" action="{{ route('kehadiran.destroy', $absis->id) }}"
@@ -147,17 +152,10 @@
                                         @csrf
                                         @method('PUT')
                                         <div class="mb-3">
-                                            <label for="siswa_id" class="form-label">Nama Siswa:</label>
-                                            <select class="form-control" id="siswa_id" name="siswa_id" required>
-                                                @foreach ($siswa as $absi)
-                                                    <option value="{{ $absi->id }}"
-                                                        @if ($absi->id == $absi->siswa_id) selected @endif>
-                                                        {{ $absi->nama_siswa }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            <label for="nama_siswa" class="form-label">Nama Siswa:</label>
+                                            <input type="text" class="form-control" id="nama_siswa" name="nama_siswa"
+                                                value="{{ $absis->nama_siswa }}" required>
                                         </div>
-
                                         <div class="mb-3">
                                             <label for="tanggal" class="form-label">Tanggal:</label>
                                             <input type="date" class="form-control" id="tanggal" name="tanggal"
@@ -171,11 +169,21 @@
                                                     </option>
                                                     <option value="tidak hadir"
                                                         {{ $absis->status_kehadiran == 'tidak hadir' ? 'selected' : '' }}>
-                                                        Tidak
-                                                        hadir</option>
+                                                        Tidak hadir</option>
                                                     <option value="izin"
                                                         {{ $absis->status_kehadiran == 'izin' ? 'selected' : '' }}>Izin
                                                     </option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="kelas_id" class="form-label">Kelas</label>
+                                                <select class="form-select" id="kelas_id" name="kelas_id" required>
+                                                    <option value="" disabled {{ old('kelas_id') == '' ? 'selected' : '' }}>Pilih kelas</option>
+                                                    @foreach ($kelas as $kelasItem)
+                                                        <option value="{{ $kelasItem->id }}" {{ $kelasItem->id == $absis->kelas_id ? 'selected' : '' }}>
+                                                            {{ $kelasItem->tingkat_kelas }} - {{ $kelasItem->jurusan }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="mb-3">
@@ -219,12 +227,8 @@
                     <form method="POST" action="{{ route('kehadiran.store') }}">
                         @csrf
                         <div class="mb-3">
-                            <label for="siswa_id" class="form-label">Nama Siswa:</label>
-                            <select class="form-control" id="siswa_id" name="siswa_id" required>
-                                @foreach ($siswa as $siswa)
-                                    <option value="{{ $siswa->id }}"> {{ $siswa->nama_siswa }}</option>
-                                @endforeach
-                            </select>
+                            <label for="tanggal" class="form-label">Nama Siswa:</label>
+                            <input type="text" class="form-control" id="nama_siswa" name="nama_siswa" required>
                         </div>
 
                         <div class="mb-3">
@@ -241,6 +245,18 @@
                                 <option value="izin" {{ old('izin') == 'izin' ? 'selected' : '' }}>
                                     Izin</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="kelas_id" class="form-label">Kelas</label>
+                            <select class="form-select" id="kelas_id" name="kelas_id" required>
+                                <option value="" disabled {{ old('kelas_id') == '' ? 'selected' : '' }}>Pilih kelas</option>
+                                @foreach ($kelas as $kelasItem)
+                                    <option value="{{ $kelasItem->id }}" {{ old('kelas_id') == $kelasItem->id ? 'selected' : '' }}>
+                                        {{ $kelasItem->tingkat_kelas }} - {{ $kelasItem->jurusan }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            
                         </div>
                         <div class="mb-3">
                             <label for="waktu_masuk" class="form-label">Waktu Masuk:</label>

@@ -60,7 +60,7 @@
                     </div>
                     <div class="ms-3">
                         {{-- <h6 class="mb-0">MEMEI</h6> --}}
-                        <span>{{Auth::user()->role}}</span>
+                        <span>{{Auth::user()->name}}</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -77,6 +77,9 @@
                         <a href="{{ route('notifikasikehadiran') }}"
                             class="nav-item nav-link {{ Request::is('notifikasikehadiran*') ? 'active' : '' }}"><i
                                 class="fa fa-bell"></i>Notifikasi</a>
+                        <a href="{{ route('datasiswa') }}"
+                            class="nav-item nav-link {{ Request::is('datasiswa*') ? 'active' : '' }}"><i
+                                class="fa fa-table"></i>Data Siswa</a>
                     @else
                         <a href="{{ route('home') }}"
                             class="nav-item nav-link {{ Request::is('/*') ? 'active' : '' }}"><i

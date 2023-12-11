@@ -11,7 +11,7 @@ class NotifikasiSiswaController extends Controller
 {
     public function index()
     {
-        $notifikasiSiswa = NotifikasiKehadiran::all();
+        $notifikasiSiswa = NotifikasiKehadiran::where('user_id',auth()->user()->id)->get();  
         // try {
         //     $notifikasiSiswa = NotifikasiSiswa::with('notifikasiKehadiran', 'siswa')
         //     ->where('siswa_id', auth()->user()->id)

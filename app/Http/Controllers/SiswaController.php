@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -12,8 +13,10 @@ class SiswaController extends Controller
 {
     public function index()
     {
+        $userId = Auth::id();
+
         // Mengambil semua siswa bersama dengan informasi kelasnya
-        $siswa = Siswa::with('kelas')->get();
+        $siswa = Siswa::with('kelas')->where('user_id', $userId)->get();
         $kelas = Kelas::all();
 
         return view('user.siswa', compact('siswa', 'kelas'));
@@ -33,6 +36,7 @@ class SiswaController extends Controller
             'nomor_telepon' => 'required|numeric|digits:12|min:0', // Menambahkan aturan min:0
             'email' => 'required|email',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'user_id' => 'required|exists:users,id', 
         ], [
             'nama_siswa.required' => 'Nama siswa harus diisi.',
             'nis.required' => 'NIS siswa harus diisi.',
@@ -59,7 +63,7 @@ class SiswaController extends Controller
         $fotoPath = $request->file('foto')->store('foto', 'public');
 
         // Create a new Siswa instance and fill it with the validated data
-        $siswa = Siswa::create(array_merge($validatedData, ['foto' => $fotoPath]));
+        $siswa = Siswa::create(array_merge($validatedData, ['foto' => $fotoPath, 'user_id' => Auth::id()]));
 
         // Redirect back or to a success page1
         return redirect()->back()->with('success', 'Siswa added successfully');

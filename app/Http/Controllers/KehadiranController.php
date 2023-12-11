@@ -2,87 +2,81 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Kehadiran;
-use App\Models\Siswa;
 use Carbon\Carbon;
+use App\Models\Kehadiran;
+use App\Models\Kelas;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KehadiranController extends Controller
 {
     public function index()
     {
+        $user = Auth::id();
         $kehadiran = Kehadiran::all();
-        $siswa = Siswa::all();
-// dd($kehadiran);
-    //     return view('kehadiran.index', compact('kehadiran', 'siswa'));
-    // }
-
-        return view('User.kehadiran', compact('kehadiran', 'siswa'));
+        $kelas = Kelas::all();
+        return view('User.kehadiran', compact('user', 'kehadiran','kelas'));
     }
 
     public function store(Request $request)
     {
-        
-        // dd($request);
         $request->validate([
-            'siswa_id' => 'required',
+            'nama_siswa' => 'required',
             'tanggal' => 'required',
             'status_kehadiran' => 'required',
             'waktu_masuk' => 'required',
             'waktu_pulang' => 'required',
             'catatan' => 'required',
+            'kelas_id' => 'required' // Validasi kelas_id
         ]);
 
         try {
-            $siswa = Siswa::findOrFail($request->siswa_id);
+            $kelas = Kelas::find($request['kelas_id']);
             $riwayat = Carbon::now()->format('Y-m-d H:i:s');
             Kehadiran::create([
-                'siswa_id' => $siswa->id,
+                'nama_siswa' => $request->nama_siswa,
                 'tanggal' => $request->tanggal,
                 'status_kehadiran' => $request->status_kehadiran,
                 'waktu_masuk' => $request->waktu_masuk,
                 'waktu_pulang' => $request->waktu_pulang,
                 'catatan' => $request->catatan,
-                'riwayat' => $riwayat
+                'riwayat' => $riwayat,
+                'kelas_id' => $request->kelas_id // Menyimpan kelas_id
             ]);
             return redirect()->back()->with('success', 'Kehadiran berhasil ditambahkan');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
-        dd($request);
     }
 
     public function update(Request $request, $id)
     {
-        // Validasi request
         $request->validate([
-            'siswa_id' => 'required',
+            'nama_siswa' => 'required',
             'tanggal' => 'required',
             'status_kehadiran' => 'required',
             'waktu_masuk' => 'required',
             'waktu_pulang' => 'required',
             'catatan' => 'required',
+            'kelas_id' => 'required' // Validasi kelas_id
         ]);
 
-        // Temukan data kehadiran berdasarkan ID
         $kehadiran = Kehadiran::findOrFail($id);
 
-        // Periksa apakah data ditemukan
         if (!$kehadiran) {
             return redirect()->back()->with('error', 'Data kehadiran tidak ditemukan');
         }
 
-        // Perbarui atribut kehadiran dengan data baru
         $kehadiran->update([
-            'siswa_id' => $request->siswa_id,
+            'nama_siswa' => $request->nama_siswa,
             'tanggal' => $request->tanggal,
             'status_kehadiran' => $request->status_kehadiran,
             'waktu_masuk' => $request->waktu_masuk,
             'waktu_pulang' => $request->waktu_pulang,
             'catatan' => $request->catatan,
+            'kelas_id' => $request->kelas_id // Perbarui kelas_id
         ]);
 
-        // Redirect kembali dengan pesan sukses
         return redirect()->back()->with('success', 'Data kehadiran berhasil diperbarui');
     }
 
@@ -90,18 +84,12 @@ class KehadiranController extends Controller
     {
         try {
             $kehadiran = Kehadiran::findOrFail($id);
-    
-            // Mengecek apakah kehadiran masih terkait dengan siswa atau relasi lain
-            if ($kehadiran->siswa()->exists()) {
-                return redirect()->back()->with('error', 'Kehadiran tidak dapat dihapus karena masih terkait dengan siswa atau relasi lain.');
-            }
-    
-            // Menghapus kehadiran dari database
+
             $kehadiran->delete();
-    
+
             return redirect()->route('kehadiran.kehadiran')->with('success', 'Kehadiran berhasil dihapus');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus kehadiran: ' . $e->getMessage());
         }
     }
-}    
+}

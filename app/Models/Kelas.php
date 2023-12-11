@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kelas extends Model
 {
+    
     use HasFactory;
     protected $table = 'kelas';
     protected $fillable = [
@@ -16,7 +17,7 @@ class Kelas extends Model
 
 
 
-    
+
 
     public function siswa()
     {
@@ -28,6 +29,15 @@ class Kelas extends Model
         return $this->hasMany(NotifikasiKehadiran::class);
     }
 
+    public function user()
+    {
+        return $this->hasMany(User::class, 'kelas_id', 'id');
+    }
+
     
+    public function kehadiran()
+    {
+        return $this->hasMany(Kehadiran::class, 'kelas_id', 'id');
+    }
 
 }

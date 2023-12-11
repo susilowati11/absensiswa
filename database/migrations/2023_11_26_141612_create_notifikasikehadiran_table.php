@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,22 +12,20 @@ return new class extends Migration
     {
         Schema::create('notifikasikehadiran', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_siswa')->nullable();
             $table->string('jenis_notifikasi');
             $table->date('tanggal_notifikasi');
             $table->time('waktu_notifikasi');
             $table->string('status_pengiriman');
             $table->text('informasi_tambahan')->nullable();
-
-            // Menambahkan kunci asing
-            $table->unsignedBigInteger('siswa_id');
-            
             // Foreign key to Kelas table
             $table->unsignedBigInteger('kelas_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });
-      
     }
 
     /**
