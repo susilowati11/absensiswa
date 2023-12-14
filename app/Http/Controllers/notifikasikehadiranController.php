@@ -52,40 +52,43 @@ class notifikasikehadiranController extends Controller
         }
     }
     public function update(Request $request, $id)
-    {
-        $validatedData = $request->validate([
-            'nama_siswa' => 'required',
-            'jenis_notifikasi' => 'required',
-            'tanggal_notifikasi' => 'required|date',
-            'waktu_notifikasi' => 'required',
-            'status_pengiriman' => 'required',
-            'informasi_tambahan' => 'nullable',
-        ], [
-            'nama_siswa.required' => 'Kolom nama siswa harus diisi.',
-            'jenis_notifikasi.required' => 'Kolom jenis notifikasi harus diisi.',
-            'tanggal_notifikasi.required' => 'Kolom tanggal notifikasi harus diisi.',
-            'tanggal_notifikasi.date' => 'Format tanggal notifikasi tidak valid.',
-            'waktu_notifikasi.required' => 'Kolom waktu notifikasi harus diisi.',
-            'status_pengiriman.required' => 'Kolom status pengiriman harus diisi.',
-        ]);
-    
-        try {
-            $notifikasi = NotifikasiKehadiran::findOrFail($id);
-            $notifikasi->update([
-                'nama_siswa' => $request->nama_siswa,
-                'jenis_notifikasi' => $request->jenis_notifikasi,
-                'tanggal_notifikasi' => $request->tanggal_notifikasi,
-                'waktu_notifikasi' => $request->waktu_notifikasi,
-                'status_pengiriman' => $request->status_pengiriman,
-                'informasi_tambahan' => $request->informasi_tambahan,
-            ]);
-        } catch (\Throwable $th) {
-            throw $th;
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui data kehadiran.');
-        }
-    
-        return redirect()->back()->with('success', 'Data kehadiran berhasil diperbarui.');
+{
+    $validator = Validator::make($request->all(), [
+        'id_siswa' => 'required',
+        'jenis_notifikasi' => 'required',
+        'tanggal_notifikasi' => 'required|date',
+        'waktu_notifikasi' => 'required',
+        'status_pengiriman' => 'required',
+        'informasi_tambahan' => 'nullable',
+    ], [
+        'id_siswa.required' => 'Kolom nama siswa harus diisi.',
+        'jenis_notifikasi.required' => 'Kolom jenis notifikasi harus diisi.',
+        'tanggal_notifikasi.required' => 'Kolom tanggal notifikasi harus diisi.',
+        'tanggal_notifikasi.date' => 'Format tanggal notifikasi tidak valid.',
+        'waktu_notifikasi.required' => 'Kolom waktu notifikasi harus diisi.',
+        'status_pengiriman.required' => 'Kolom status pengiriman harus diisi.',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
     }
+
+    try {
+        $notifikasi = NotifikasiKehadiran::findOrFail($id);
+        $notifikasi->update([
+            'user_id' => $request->id_siswa,
+            'jenis_notifikasi' => $request->jenis_notifikasi,
+            'tanggal_notifikasi' => $request->tanggal_notifikasi,
+            'waktu_notifikasi' => $request->waktu_notifikasi,
+            'status_pengiriman' => $request->status_pengiriman,
+            'informasi_tambahan' => $request->informasi_tambahan,
+        ]);
+    } catch (\Throwable $th) {
+        return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui data kehadiran.');
+    }
+
+    return redirect()->back()->with('success', 'Data kehadiran berhasil diperbarui.');
+}
 
     public function destroy($id)
 {

@@ -60,7 +60,7 @@ class SiswaController extends Controller
             'foto.max' => 'Ukuran berkas tidak boleh melebihi 2048 kilobita.',
         ]);        
         
-        $fotoPath = $request->file('foto')->store('foto', 'public');
+        $fotoPath = $request->file('foto')->store('siswa_foto', 'public');
 
         // Create a new Siswa instance and fill it with the validated data
         $siswa = Siswa::create(array_merge($validatedData, ['foto' => $fotoPath, 'user_id' => Auth::id()]));

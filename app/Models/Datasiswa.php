@@ -11,10 +11,21 @@ class Datasiswa extends Model
     use HasFactory;
 
     protected $table = 'datasiswa';
-    protected $fillable = ['user_id', 'nama_siswa', 'nis', 'kelas_id', 'jenis_kelamin', 'tanggal_lahir', 'alamat', 'nomor_telepone', 'email'];
+    protected $fillable = [ 
+    'user_id',
+    'nama_siswa',
+    'nis',
+    'kelas_id',
+    'jenis_kelamin',
+    'tanggal_lahir',
+    'alamat',
+    'nomor_telepon',
+    'email',
+ 
+];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
 }

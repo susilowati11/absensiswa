@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\Kehadiran;
+use App\Models\User;
 use App\Models\Kelas;
+use App\Models\Kehadiran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,16 +13,23 @@ class KehadiranController extends Controller
 {
     public function index()
     {
-        $user = Auth::id();
-        $kehadiran = Kehadiran::all();
+        // $user = User::all();
+        // Mendapatkan ID pengguna yang login
+        $userId = Auth::id();
+
+        $user = User::where('id', $userId)->get();
+
+        // Mendapatkan data kehadiran hanya untuk pengguna yang login
+        $kehadiran = Kehadiran::where('user_id', $userId)->get();
+
         $kelas = Kelas::all();
-        return view('User.kehadiran', compact('user', 'kehadiran','kelas'));
+        return view('User.kehadiran', compact('user', 'kehadiran', 'kelas'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nama_siswa' => 'required',
+            'id_siswa' => 'required',
             'tanggal' => 'required',
             'status_kehadiran' => 'required',
             'waktu_masuk' => 'required',
@@ -34,7 +42,7 @@ class KehadiranController extends Controller
             $kelas = Kelas::find($request['kelas_id']);
             $riwayat = Carbon::now()->format('Y-m-d H:i:s');
             Kehadiran::create([
-                'nama_siswa' => $request->nama_siswa,
+                'user_id' => $request->id_siswa,
                 'tanggal' => $request->tanggal,
                 'status_kehadiran' => $request->status_kehadiran,
                 'waktu_masuk' => $request->waktu_masuk,
@@ -52,7 +60,7 @@ class KehadiranController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_siswa' => 'required',
+            'id_siswa' => 'required',
             'tanggal' => 'required',
             'status_kehadiran' => 'required',
             'waktu_masuk' => 'required',
@@ -68,7 +76,7 @@ class KehadiranController extends Controller
         }
 
         $kehadiran->update([
-            'nama_siswa' => $request->nama_siswa,
+            'user_id' => $request->id_siswa,
             'tanggal' => $request->tanggal,
             'status_kehadiran' => $request->status_kehadiran,
             'waktu_masuk' => $request->waktu_masuk,
@@ -87,9 +95,9 @@ class KehadiranController extends Controller
 
             $kehadiran->delete();
 
-            return redirect()->route('kehadiran.kehadiran')->with('success', 'Kehadiran berhasil dihapus');
+            return redirect()->back()->with('success', 'Kehadiran berhasil dihapus');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus kehadiran: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus kehadiran: ' );
         }
     }
 }

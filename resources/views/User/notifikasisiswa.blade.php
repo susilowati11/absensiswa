@@ -86,8 +86,7 @@
 
         </nav>
         <table class="table mt-1 ms-1">
-            <thead class="table-light">
-                <thead>
+                <thead  class="table-light">
                     <tr>
                         <th class="text-center">ID</th>
                         <th class="text-center">Siswa</th>

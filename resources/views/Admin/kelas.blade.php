@@ -34,7 +34,7 @@
     
                     <tr>
                         <th class="text-center">No</th>
-                        <th class="text-center">ID</th>
+                        {{-- <th class="text-center">ID</th> --}}
                         <th class="text-center">jurusan</th>
                         <th class="text-center">Tingkat Kelas</th>
                         <th class="text-center">Aksi</th>
@@ -44,7 +44,7 @@
                     @foreach ($kelas as $absis)
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
-                            <td class="text-center">{{ $absis->id }}</td>
+                            {{-- <td class="text-center">{{ $absis->id }}</td> --}}
                             <td class="text-center">{{ $absis->jurusan }}</td>
                             <td class="text-center">{{ $absis->tingkat_kelas }}</td>
                             <td class="text-center">

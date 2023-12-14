@@ -52,11 +52,11 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/logosmk.jpg" alt=""
-                            style="width: 40px; height: 40px;">
-                        <div
+                        {{-- <img class="rounded-circle" src="img/logosmk.jpg" alt=""
+                            style="width: 40px; height: 40px;"> --}}
+                        {{-- <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="ms-3">
                         {{-- <h6 class="mb-0">MEMEI</h6> --}}
@@ -86,7 +86,7 @@
                                 class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <a href="{{ route('siswa') }}"
                             class="nav-item nav-link {{ Request::is('siswa*') ? 'active' : '' }}"><i
-                                class="fa fa-users"></i>Siswa</a>
+                                class="fa fa-users"></i>Profile</a>
                         <a href="{{ route('kehadiran') }}"
                             class="nav-item nav-link {{ Request::is('kehadiran*') ? 'active' : '' }}"><i
                                 class="fa fa-clipboard-check"></i>Kehadiran</a>

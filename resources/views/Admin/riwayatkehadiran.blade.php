@@ -41,7 +41,7 @@
                 {{-- @dd($absis) --}}
                     <tr>
                         <td class="text-center">{{ $absis->id }}</td>
-                        <td class="text-center">{{ $absis->nama_siswa }}</td>
+                        <td class="text-center">{{ $absis->user->name }}</td>
                         <td class="text-center">{{ $absis->tanggal }}</td>
                         <td class="text-center">{{ $absis->kelas->tingkat_kelas }}</td>
                         <td class="text-center">{{ $absis->kelas->jurusan }}</td>

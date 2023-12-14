@@ -1,4 +1,5 @@
 @extends('layouts.sidebar')
+
 @section('content')
     <div class="content">
         <!-- Navbar Start -->
@@ -81,9 +82,7 @@
                     @csrf
                     <button type="submit" class="btn btn-primary text-center">Logout</button>
                 </form>
-
             </div>
-
         </nav>
 
         <head>
@@ -129,26 +128,26 @@
                 }
 
                 /* nav {
-                    background-color: lightblue;
-                    color: #161515;
-                    padding: 1em;
-                }
+                                background-color: lightblue;
+                                color: #161515;
+                                padding: 1em;
+                            }
 
-                nav ul {
-                    list-style-type: none;
-                    margin: 0;
-                    padding: 0;
-                    display: flex;
-                }
+                            nav ul {
+                                list-style-type: none;
+                                margin: 0;
+                                padding: 0;
+                                display: flex;
+                            }
 
-                nav li {
-                    margin-right: 20px;
-                }
+                            nav li {
+                                margin-right: 20px;
+                            }
 
-                nav a {
-                    text-decoration: none;
-                    color: blue font-weight: bold;
-                } */
+                            nav a {
+                                text-decoration: none;
+                                color: blue font-weight: bold;
+                            } */
 
                 @media (max-width: 600px) {
                     .dashboard-item {
@@ -159,10 +158,16 @@
             </style>
         </head>
 
-        
+
         <body>
             <header>
-                <h1>Selamat Datang Di Aplikasi Absen Siswa</h1>
+                @if (auth()->user()->hasRole('user'))
+                    <h1>Selamat Datang, Siswa!</h1>
+                @elseif(auth()->user()->hasRole('admin'))
+                    <h1>Selamat Datang, Admin!</h1>
+                @else
+                    <h1>Selamat Datang!</h1>
+                @endif
             </header>
             <section>
                 <div class="dashboard-item">
@@ -174,8 +179,11 @@
                             <p> "Jangan takut salah ketika menuntut ilmu karena banyak orang sukses belajar dari sebuah
                                 kesalahan."</p>
                         </div>
+                    </div>
+                </div>
             </section>
         </body>
+
 
     </div>
 @endsection

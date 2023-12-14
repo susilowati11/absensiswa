@@ -79,6 +79,8 @@ Route::middleware('auth')->group(function () {
         Route::prefix('datasiswa')->group(function () {
             Route::get('/', [DatasiswaController::class, 'index'])->name('datasiswa');
             Route::post('/store', [DatasiswaController::class, 'store'])->name('datasiswa.store');
+            Route::put('datasiswa/update/{user_id}', [Datasiswacontroller::class, 'update'])->name('datasiswa.update');
+            Route::delete('/destroy/{user_id}', [DatasiswaController::class, 'destroy'])->name('datasiswa.destroy');
         });
     });
 });

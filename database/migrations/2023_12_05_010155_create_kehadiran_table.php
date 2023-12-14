@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('kehadiran', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_siswa');
+            $table->string('nama_siswa')->nullable();
             $table->date('tanggal');
             $table->enum('status_kehadiran', ['Hadir', 'Tidak Hadir', 'Izin'])->default('Hadir');
             $table->time('waktu_masuk');
@@ -21,8 +21,11 @@ return new class extends Migration
             $table->string('catatan');
             $table->datetime('riwayat');
             $table->unsignedBigInteger('kelas_id')->nullable();
-            $table->timestamps();
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('kelas_id')->references('id')->on('kelas');
+            $table->timestamps();
         });
     }
 
@@ -31,10 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('kehadiran', function (Blueprint $table) {
-            $table->dropForeign(['kelas_id']);
-        });
-
         Schema::dropIfExists('kehadiran');
     }
 };

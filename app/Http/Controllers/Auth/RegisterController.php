@@ -51,12 +51,48 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        // dd($data);
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'kelas_id' => ['required', 'exists:kelas,id'],
+            'nis' => ['required', 'integer', 'digits:8', 'unique:users,nis', 'min:0'],
+            'jenis_kelamin' => ['required', 'in:laki-laki,perempuan'],
+            'tanggal_lahir' => ['required', 'date'],
+            'alamat' => ['required', 'string', 'max:255'],
+            'no_tlp' => ['required', 'numeric', 'digits:12'],
+            'foto' => ['required', 'max:2048'],
+        ], [
+            'name.required' => 'Nama harus diisi.',
+            'email.required' => 'Email harus diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan.',
+            'password.required' => 'Password harus diisi.',
+            'password.min' => 'Password minimal harus 8 karakter.',
+            'password.confirmed' => 'Konfirmasi password tidak sesuai.',
+            'kelas_id.required' => 'Kelas harus dipilih.',
+            'kelas_id.exists' => 'Kelas yang dipilih tidak valid.',
+            'nis.required' => 'NIS harus diisi.',
+            'nis.integer' => 'NIS harus berupa bilangan bulat.',
+            'nis.digits' => 'NIS harus terdiri dari 8 digit.',
+            'nis.unique' => 'NIS sudah digunakan.',
+            'nis.min' => 'NIS tidak boleh bernilai negatif.',
+            'jenis_kelamin.required' => 'Jenis kelamin harus dipilih.',
+            'jenis_kelamin.in' => 'Jenis kelamin harus Laki-Laki atau Perempuan.',
+            'tanggal_lahir.required' => 'Tanggal lahir harus diisi.',
+            'tanggal_lahir.date' => 'Format tanggal lahir tidak valid.',
+            'alamat.required' => 'Alamat harus diisi.',
+            'alamat.max' => 'Alamat maksimal 255 karakter.',
+            'no_tlp.required' => 'Nomor telepon harus diisi.',
+            'no_tlp.numeric' => 'Nomor telepon harus berupa angka.',
+            'digits' => 'Nomor telepon harus terdiri dari 12 digit.',
+            'foto.required' => 'Foto harus diunggah.',
+            'foto.image' => 'File yang diunggah harus berupa gambar.',
+            'foto.max' => 'Ukuran foto maksimal 2MB.',
         ]);
+
+        return "halo";
     }
 
     /**
@@ -69,6 +105,11 @@ class RegisterController extends Controller
     {
         $kelas = Kelas::find($data['kelas_id']);
 
+        $foto = $data['foto'];
+
+        // Menggunakan storeAs untuk menyimpan file dengan nama acak
+        $namaFoto = $foto->storeAs('', uniqid() . '.' . $foto->getClientOriginalExtension(), 'public');
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -79,6 +120,19 @@ class RegisterController extends Controller
             'tanggal_lahir' => $data['tanggal_lahir'],
             'alamat' => $data['alamat'],
             'no_tlp' => $data['no_tlp'],
+            'foto' => $namaFoto,
+        ]);
+
+        $datasiswa = $user->datasiswa()->create([
+            'user_id' => $user->id,
+            'nama_siswa' => $data['name'],
+            'nis' => $data['nis'],
+            'kelas_id' => $data['kelas_id'],
+            'jenis_kelamin' => $data['jenis_kelamin'],
+            'tanggal_lahir' => $data['tanggal_lahir'],
+            'alamat' => $data['alamat'],
+            'nomor_telepon' => $data['no_tlp'],
+            'email' => $data['email'],
         ]);
 
         return $user;
@@ -93,6 +147,6 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
-        return redirect('index.php');
+        return redirect()->route('login')->with('success', 'Registrasi berhasil. Silakan login.');
     }
 }

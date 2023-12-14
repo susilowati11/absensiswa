@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('alamat');
             $table->string('nomor_telepon');
             $table->string('email');
-            $table->string('foto');
+           
             $table->foreignId('user_id')->constrained(); // This adds a foreign key constraint to the users table
             $table->timestamps();
         });

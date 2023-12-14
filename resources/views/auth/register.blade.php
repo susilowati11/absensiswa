@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Register') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -17,7 +17,7 @@
                                             class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
                                         <input id="name" type="text"
                                             class="form-control @error('name') is-invalid @enderror" name="name"
-                                            value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                            value="{{ old('name') }}" autocomplete="name" autofocus>
 
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -33,7 +33,7 @@
                                             class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
                                         <input id="email" type="email"
                                             class="form-control @error('email') is-invalid @enderror" name="email"
-                                            value="{{ old('email') }}" required autocomplete="email">
+                                            value="{{ old('email') }}"  autocomplete="email">
 
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
@@ -46,7 +46,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="nis" class="col-md-4 col-form-label text-md-end">NIS</label>
-                                        <input type="number" class="form-control" id="nis" name="nis" required>
+                                        <input type="number" class="form-control @error('nis') is-invalid @enderror"
+                                            id="nis" name="nis" value="{{ old('nis') }}">
                                         @error('nis')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -72,8 +73,13 @@
                                     <div class="form-group">
                                         <label for="tanggal_lahir" class="col-md-4 col-form-label text-md-end">Tanggal
                                             Lahir</label>
-                                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir"
-                                            required>
+                                        <input type="date"
+                                            class="form-control @error('tanggal_lahir') is-invalid @enderror"
+                                            id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
+                                            >
+                                        @error('tanggal_lahir')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -81,39 +87,53 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="no_tlp" class="col-md-4 col-form-label text-md-end">No Telepon</label>
-                                        <input type="number" class="form-control" id="no_tlp" name="no_tlp" required>
+                                        <input type="number" class="form-control @error('no_tlp') is-invalid @enderror"
+                                            id="no_tlp" name="no_tlp" value="{{ old('no_tlp') }}" >
+                                        @error('no_tlp')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
 
-                                {{-- <div class="col-md-6">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="foto" class="col-md-4 col-form-label text-md-end">Foto Siswa</label>
                                         <input type="file" class="form-control" id="foto" name="foto">
                                     </div>
-                                </div> --}}
+                                </div>
 
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="alamat" class="col-md-4 col-form-label text-md-end">Alamat</label>
-                                        <textarea class="form-control" id="alamat" name="alamat" required></textarea>
+                                        <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" >{{ old('alamat') }}</textarea>
+                                        @error('alamat')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                   
-                                    <div class="form-group">
-                                        <label for="kelas_id" class="form-label">Kelas</label>
-                                        <select class="form-select" id="kelas_id" name="kelas_id" required>
-                                            <option value="" disabled {{ old('kelas_id') == '' ? 'selected' : '' }}>Pilih kelas</option>
-                                            @if(isset($kelas))
-                                                @foreach ($kelas as $kelasItem)
-                                                    <option value="{{ $kelasItem->id }}" {{ old('kelas_id') == $kelasItem->id ? 'selected' : '' }}>
-                                                        {{ $kelasItem->tingkat_kelas }} - {{ $kelasItem->jurusan }}
-                                                    </option>
-                                                @endforeach
-                                            @endif
-                                        </select>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="kelas_id" class="form-label">Kelas</label>
+                                            <select class="form-select @error('kelas_id') is-invalid @enderror"
+                                                id="kelas_id" name="kelas_id" >
+                                                <option value="" disabled
+                                                    {{ old('kelas_id') == '' ? 'selected' : '' }}>Pilih kelas</option>
+                                                @if (isset($kelas))
+                                                    @foreach ($kelas as $kelasItem)
+                                                        <option value="{{ $kelasItem->id }}"
+                                                            {{ old('kelas_id') == $kelasItem->id ? 'selected' : '' }}>
+                                                            {{ $kelasItem->tingkat_kelas }} - {{ $kelasItem->jurusan }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                            @error('kelas_id')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
 
@@ -123,7 +143,7 @@
                                             class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
                                         <input id="password" type="password"
                                             class="form-control @error('password') is-invalid @enderror" name="password"
-                                            required autocomplete="new-password">
+                                           autocomplete="new-password">
 
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -138,7 +158,7 @@
                                         <label for="password-confirm"
                                             class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
                                         <input id="password-confirm" type="password" class="form-control"
-                                            name="password_confirmation" required autocomplete="new-password">
+                                            name="password_confirmation" autocomplete="new-password">
                                     </div>
                                 </div>
                             </div>

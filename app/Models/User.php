@@ -34,6 +34,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    
+    public function hasRole($role)
+    {
+        return $this->role === $role;
+    }
+
 
     public function siswa()
     {
@@ -55,4 +61,5 @@ class User extends Authenticatable
     {
         return $this->hasOne(Datasiswa::class, 'user_id');
     }
+    
 }

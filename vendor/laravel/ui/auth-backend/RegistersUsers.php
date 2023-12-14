@@ -30,12 +30,14 @@ trait RegistersUsers
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-
         event(new Registered($user = $this->create($request->all())));
-
-        $this->guard()->login($user);
-
+        
+        
+        // $this->guard()->login($user);
+        
         if ($response = $this->registered($request, $user)) {
+            // dd($_FILES);
+            // Storage::disk('local')->put('example.txt', 'Contents');
             return $response;
         }
 

@@ -43,6 +43,8 @@ class Siswa extends Model
     {
         return $this->belongsTo(Kehadiran::class,);
     }
+
+    
     public function notifikasiSiswa()
     {
         return $this->hasMany(NotifikasiSiswa::class, 'siswa_id');

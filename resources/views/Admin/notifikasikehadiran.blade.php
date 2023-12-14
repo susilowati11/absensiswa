@@ -93,10 +93,12 @@
                                 <select class="form-select" name="id_siswa" id="id_siswa">
                                     <option value="" disabled>Pilih siswa</option>
                                     @foreach ($user as $siswa)
-                                        <option value="{{ $siswa->id }}">{{ $siswa->name }}</option>
+                                        @if ($siswa->hasRole('user'))
+                                            <option value="{{ $siswa->id }}">{{ $siswa->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
-                            </div>
+                            </div>                            
                             <div class="form-group">
                                 <label for="kelas_id" class="form-label">Kelas</label>
                                 <select class="form-select" id="kelas_id" name="kelas_id" required>
@@ -161,16 +163,17 @@
                                 @method('PUT')
                         
                                 <div class="mb-3">
-                                    <label for="id_siswa" class="form-label">Nama siswa</label>
+                                    <label for="id_siswa">Edit Siswa:</label>
                                     <select class="form-select" name="id_siswa" id="id_siswa">
                                         <option value="" disabled>Pilih siswa</option>
                                         @foreach ($user as $siswa)
-                                            <option value="{{ $siswa->id }}" {{ $notifikasi->user_id == $siswa->id ? 'selected' : '' }}>
-                                                {{ $siswa->name }}
-                                            </option>
+                                        @if ($siswa->hasRole('user'))
+                                            <option value="{{ $siswa->id }}">{{ $siswa->name }}</option>
+                                        @endif
                                         @endforeach
                                     </select>
                                 </div>
+                                
                                 <div class="form-group">
                                     <label for="kelas_id" class="form-label">Kelas</label>
                                     <select class="form-select" id="kelas_id" name="kelas_id" required>
