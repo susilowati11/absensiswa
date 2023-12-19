@@ -35,8 +35,6 @@ class NotifikasiSiswaController extends Controller
                 'siswa_id' => $siswa_id, // Ganti dengan ID siswa yang sesuai
                 'jenis_notifikasi' => '...',
                 'tanggal_notifikasi' => '...',
-                'waktu_notifikasi' => '...',
-                'status_pengiriman' => '...',
                 'informasi_tambahan' => '...',
             ]);
 

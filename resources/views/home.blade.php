@@ -162,7 +162,7 @@
         <body>
             <header>
                 @if (auth()->user()->hasRole('user'))
-                    <h1>Selamat Datang, Siswa!</h1>
+                <p style="font-size: 40px;">Selamat datang, {{ auth()->user()->name }}!</p>
                 @elseif(auth()->user()->hasRole('admin'))
                     <h1>Selamat Datang, Admin!</h1>
                 @else

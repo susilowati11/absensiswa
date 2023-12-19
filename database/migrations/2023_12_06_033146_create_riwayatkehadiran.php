@@ -14,12 +14,7 @@ return new class extends Migration
         Schema::create('riwayatkehadiran', function (Blueprint $table) {
             $table->id();
             $table->string('nama_siswa');
-            $table->date('tanggal');
             $table->date('status_kehadiran');
-            $table->time('waktu_masuk');
-            
-            $table->time('waktu_pulang');
-            $table->text('catatan');
             $table->timestamps();
         });
     }

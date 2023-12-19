@@ -9,9 +9,11 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\DatasiswaController;
 use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotifikasiSiswaController;
 use App\Http\Controllers\RiwayatkehadiranController;
 use App\Http\Controllers\notifikasikehadiranController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +33,7 @@ use App\Http\Controllers\notifikasikehadiranController;
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return view('home');
-    })->name('home');
+    Route::get('/',[HomeController::class,'index'])->name('home');
     // routes/web.php
                                           
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -53,6 +53,10 @@ Route::middleware('auth')->group(function () {
         });
         Route::prefix('notifikasi-siswa')->group(function () {
             Route::get('/', [NotifikasiSiswaController::class, 'index'])->name('notifikasi-siswa');
+        });
+
+        Route::prefix('upload-foto')->group(function () {
+        Route::post('/upload-photo', [ProfileController::class,'index'])->name('upload-photo');
         });
     });
 

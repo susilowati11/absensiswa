@@ -24,7 +24,6 @@
             .card-text {
                 margin-bottom: 10px;
             }
-
         </style>
         <!-- Navbar Start -->
         <!-- ... (your existing navbar code) ... -->
@@ -56,9 +55,19 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Profile Picture</h5>
-                            <img src="{{ asset('storage/' . auth()->user()->foto) }}" class="card-img-top" alt="Profile Picture">
+                            <img src="{{ asset('storage/' . auth()->user()->foto) }}" class="card-img-top"
+                                alt="Profile Picture">
+                            <form action="{{ route('upload-photo') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="foto">Unggah Foto Baru:</label>
+                                    <input type="file" class="form-control-file" id="foto" name="foto">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Unggah Foto</button>
+                            </form>
                         </div>
                     </div>
+
                 </div>
             </div>
 

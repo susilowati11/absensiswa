@@ -12,10 +12,6 @@ class riwayatkehadiran extends Model
 
     protected $fillable = [
         'nama_siswa',
-        'tanggal',
         'status_kehadiran',
-        'waktu_masuk',
-        'waktu_pulang',
-        'catatan',
     ];
 }

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Datasiswa;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash; // Make sure to import Hash
-use App\Http\Controllers\Controller;
 use App\Models\Kelas;
+use App\Models\Datasiswa;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash; // Make sure to import Hash
 
 class DatasiswaController extends Controller
 {
@@ -24,37 +26,62 @@ class DatasiswaController extends Controller
 
     public function store(Request $request)
     {
-        // Display request data
-        // dd($request->all());
 
-        // Validasi permintaan
-        // $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|email|unique:users|max:255',
-        //     'password' => 'required|string|min:8',
-        //     'nis' => 'required|string|max:255',
-        //     'kelas_id' => 'required|numeric',
-        //     'jenis_kelamin' => 'required|string|max:255',
-        //     'tanggal_lahir' => 'required|date',
-        //     'alamat' => 'required|string',
-        //     'no_tlp' => 'required|string|max:255', // Tambahkan validasi untuk nomor telepon
-        // ],[
-        //     'name.required' => 'Inputan harus di isi',
-        //     'email.required'=>'inputan harus diisi',
-        //     'password.required'=>'inputan harus diisi',
-        //     'nis.required'=>'inputan harus diisi',
-        //     'kelas_id.required'=>'inputan harus diisi',
-        //     'jenis_kelamin.required'=>'inputan harus diisi',
-        //     'tanggal_lahir.required'=>'inputan harus diisi',
-        //     'alamat.required'=>'inputan harus diisi',
-        //     'no_tlp.required'=>'inputan harus diisi',
-        // ]);
+        // dd($request);
+        // Validasi data untuk membuat Datasiswa
+        $validator = Validator::make($request->all(), [
+            // 'user_id' => 'required|exists:users,id',
+            'name' => 'required|string|max:255', // Validasi bahwa nama_siswa harus diisi
+            'nis' => 'required|string|max:20|unique:datasiswa,nis',
+            'kelas_id' => 'required|exists:kelas,id',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'tanggal_lahir' => 'required|date',
+            'alamat' => 'required|string|max:255',
+            'no_tlp' => ['required', 'numeric', 'digits:12'],
+            'email' => 'required|email|unique:datasiswa,email',
 
+        ], [
+            // 'user_id.required' => 'Kolom User ID harus diisi.',
+            // 'user_id.exists' => 'User dengan ID yang dimasukkan tidak ditemukan.',
+            'name.required' => 'Kolom Nama harus diisi.',
+            'name.string' => 'Kolom Nama harus berupa teks.',
+            'name.max' => 'Kolom Nama tidak boleh lebih dari :max karakter.',
+            'nis.required' => 'Kolom NIS harus diisi.',
+            'nis.string' => 'Kolom NIS harus berupa teks.',
+            'nis.max' => 'Kolom NIS tidak boleh lebih dari :max karakter.',
+            'nis.unique' => 'NIS sudah digunakan oleh siswa lain.',
+            'kelas_id.required' => 'Kolom Kelas ID harus diisi.',
+            'kelas_id.exists' => 'Kelas dengan ID yang dimasukkan tidak ditemukan.',
+            'jenis_kelamin.required' => 'Kolom Jenis Kelamin harus diisi.',
+            'jenis_kelamin.in' => 'Kolom Jenis Kelamin harus diisi dengan Laki-laki atau Perempuan.',
+            'tanggal_lahir.required' => 'Kolom Tanggal Lahir harus diisi.',
+            'tanggal_lahir.date' => 'Kolom Tanggal Lahir harus berupa tanggal.',
+            'alamat.required' => 'Kolom Alamat harus diisi.',
+            'alamat.string' => 'Kolom Alamat harus berupa teks.',
+            'alamat.max' => 'Kolom Alamat tidak boleh lebih dari :max karakter.',
+            'no_tlp.required' => 'Kolom Nomor Telepon harus diisi.',
+            'no_tlp.string' => 'Kolom Nomor Telepon harus berupa teks.',
+            'digits' => 'Nomor telepon harus terdiri dari 12 digit.',
+            'email.required' => 'Kolom Email harus diisi.',
+            'email.email' => 'Format Email tidak valid.',
+            'email.unique' => 'Email sudah digunakan oleh siswa lain.',
+            // Tambahkan validasi untuk bidang lainnya sesuai kebutuhan
+        ]);
+        
+
+        // Jika validasi gagal, kembalikan respon dengan pesan kesalahan
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+
+            // return response()->json($validator->errors());
+        }
         // Buat pengguna baru
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
+            'password' =>  bcrypt('password'),
             'nis' => $request->input('nis'),
             'kelas_id' => $request->input('kelas_id'),
             'jenis_kelamin' => $request->input('jenis_kelamin'),
@@ -81,16 +108,16 @@ class DatasiswaController extends Controller
         // Alihkan ke halaman indeks setelah membuat data
     }
 
-   public function update(Request $request, $user_id)
-{
-    $datasiswa = Datasiswa::where('user_id', $user_id)->first();
-    // dd($datasiswa);
-    if (!$datasiswa) {
-        return redirect()->back()->with('error', 'Data not found for ID: ' . $user_id);
-    }
+    public function update(Request $request, $user_id)
+    {
+        $datasiswa = Datasiswa::where('user_id', $user_id)->first();
+        // dd($datasiswa);
+        if (!$datasiswa) {
+            return redirect()->back()->with('error', 'Data not found for ID: ' . $user_id);
+        }
 
-    // Update the associated User if email changes
-    // if ($request->input('email') != optional($datasiswa->user)->email) {
+        // Update the associated User if email changes
+        // if ($request->input('email') != optional($datasiswa->user)->email) {
         // dd($user);
         if ($datasiswa->user) {
             $datasiswa->user->update([
@@ -104,30 +131,36 @@ class DatasiswaController extends Controller
                 'no_tlp' => $request->input('no_tlp'),
             ]);
         }
-    
-
-    // Update the Datasiswa record
-    $datasiswa->update([
-        'nama_siswa' => $request->input('name'),
-        'nis' => $request->input('nis'),
-        'kelas_id' => $request->input('kelas_id'),
-        'jenis_kelamin' => $request->input('jenis_kelamin'),
-        'tanggal_lahir' => $request->input('tanggal_lahir'),
-        'alamat' => $request->input('alamat'),
-        'nomor_telepon' => $request->input('no_tlp'),
-        'email' => $request->input('email'),
-        // add other fields as needed
-    ]);
-
-    return redirect()->back()->with('success', 'Data Berhasil diupdate');
-}
 
 
-public function destroy($user_id)
+        // Update the Datasiswa record
+        $datasiswa->update([
+            'nama_siswa' => $request->input('name'),
+            'nis' => $request->input('nis'),
+            'kelas_id' => $request->input('kelas_id'),
+            'jenis_kelamin' => $request->input('jenis_kelamin'),
+            'tanggal_lahir' => $request->input('tanggal_lahir'),
+            'alamat' => $request->input('alamat'),
+            'nomor_telepon' => $request->input('no_tlp'),
+            'email' => $request->input('email'),
+            // add other fields as needed
+        ]);
+
+        return redirect()->back()->with('success', 'Data Berhasil diupdate');
+    }
+
+
+   public function destroy($user_id)
 {
     try {
         // Cari data siswa berdasarkan user_id
         $datasiswa = Datasiswa::where('user_id', $user_id)->firstOrFail();
+
+        // Simpan nama file foto (dari tabel user) sebelum menghapus user
+        $userFotoToDelete = $datasiswa->user->foto;
+
+        // Simpan nama file foto (dari folder siswa_foto) sebelum menghapus user
+        $siswaFotoToDelete = $datasiswa->foto;
 
         // Hapus data siswa
         $datasiswa->delete();
@@ -135,9 +168,20 @@ public function destroy($user_id)
         // Hapus juga record pada tabel users
         User::where('id', $user_id)->delete();
 
+        // Hapus file foto (dari tabel user) terkait
+        if ($userFotoToDelete && Storage::disk('public')->exists($userFotoToDelete)) {
+            Storage::disk('public')->delete($userFotoToDelete);
+        }
+
+        // Hapus file foto (dari folder siswa_foto) terkait
+        if ($siswaFotoToDelete && Storage::disk('public')->exists($siswaFotoToDelete)) {
+            Storage::disk('public')->delete($siswaFotoToDelete);
+        }
+
         return redirect()->back()->with('success', 'Data siswa dan user berhasil dihapus');
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus data siswa dan user: ' . $e->getMessage());
     }
 }
+
 }

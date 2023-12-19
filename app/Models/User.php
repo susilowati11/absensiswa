@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function kehadiran()
     {
-        return $this->belongsTo(Kehadiran::class);
+        return $this->hasMany(Kehadiran::class);
     }
 
     // Update the relationship to use hasOne

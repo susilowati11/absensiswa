@@ -16,8 +16,6 @@ class NotifikasiKehadiran extends Model
         'kelas_id',
         'jenis_notifikasi',
         'tanggal_notifikasi',
-        'waktu_notifikasi',
-        'status_pengiriman',
         'informasi_tambahan',
         'user_id',
     ];

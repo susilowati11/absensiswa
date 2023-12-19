@@ -31,16 +31,16 @@
 
                 <thead>
                     <tr>
-                        <th class="text-center">#</th>
+                        <th class="text-center">No</th>
                         <th class="text-center">Nama Siswa</th>
                         <th class="text-center">Kelas</th>
                         <th class="text-center">Jurusan</th>
-                        <th class="text-center">Tanggal</th>
+                        {{-- <th class="text-center">Tanggal</th> --}}
                         <th class="text-center">Status Kehadiran</th>
-                        <th class="text-center">Waktu Masuk</th>
-                        <th class="text-center">Waktu Pulang</th>
-                        <th class="text-center">Catatan</th>
-                        <th class="text-center">Aksi</th>
+                        {{-- <th class="text-center">Waktu Masuk</th>
+                        <th class="text-center">Waktu Pulang</th> --}}
+                        {{-- <th class="text-center">Catatan</th> --}}
+                        {{-- <th class="text-center">Aksi</th> --}}
                     </tr>
                 </thead>
             <tbody>
@@ -50,13 +50,13 @@
                         <td class="text-center">{{ $absis->user->name }}</td>
                         <td class="text-center">{{ $absis->kelas->tingkat_kelas }}</td>
                         <td class="text-center">{{ $absis->kelas->jurusan }}</td>
-                        <td class="text-center">{{ $absis->tanggal }}</td>
+                        {{-- <td class="text-center">{{ $absis->tanggal }}</td> --}}
                         <td class="text-center">{{ $absis->status_kehadiran }}</td>
-                        <td class="text-center">{{ $absis->waktu_masuk }}</td>
-                        <td class="text-center">{{ $absis->waktu_pulang }}</td>
-                        <td class="text-center">{{ $absis->catatan }}</td>
+                        {{-- <td class="text-center">{{ $absis->waktu_masuk }}</td>
+                        <td class="text-center">{{ $absis->waktu_pulang }}</td> --}}
+                        {{-- <td class="text-center">{{ $absis->catatan }}</td> --}}
                        
-                        <td>
+                        {{-- <td>
                             <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#editKehadiranModal-{{ $absis->id }}"
                                 data-link="{{ $absis->siswa_id }}">
@@ -71,9 +71,9 @@
                                     <i class="fas fa-trash"></i> Hapus
                                 </button>
                             </form>
-                        </td>
+                        </td> --}}
                     </tr>
-                    <div class="modal fade" id="editKehadiranModal-{{ $absis->id }}" tabindex="-1"
+                    {{-- <div class="modal fade" id="editKehadiranModal-{{ $absis->id }}" tabindex="-1"
                         aria-labelledby="editKehadiranModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -81,8 +81,8 @@
                                     <h5 class="modal-title" id="editKehadiranModalLabel">Edit Kehadiran</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
+                                </div> --}}
+                                {{-- <div class="modal-body">
                                     <form action="{{ route('kehadiran.update', $absis->id) }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
@@ -95,13 +95,13 @@
                                                     <option value="{{ $siswa->id }}">{{ $siswa->name }}</option>
                                                 @endforeach
                                             </select>
-                                        </div>
+                                        </div> --}}
                                         
-                                        <div class="mb-3">
+                                        {{-- <div class="mb-3">
                                             <label for="tanggal" class="form-label">Tanggal:</label>
                                             <input type="date" class="form-control" id="tanggal" name="tanggal"
-                                                value="{{ $absis->tanggal }}" required>
-                                            <div class="form-group">
+                                                value="{{ $absis->tanggal }}" required> --}}
+                                            {{-- <div class="form-group">
                                                 <label for="status_kehadiran" class="form-label">Status Kehadiran</label>
                                                 <select class="form-select" id="status_kehadiran" name="status_kehadiran"
                                                     required>
@@ -115,8 +115,8 @@
                                                         {{ $absis->status_kehadiran == 'izin' ? 'selected' : '' }}>Izin
                                                     </option>
                                                 </select>
-                                            </div>
-                                            <div class="form-group">
+                                            </div> --}}
+                                            {{-- <div class="form-group">
                                                 <label for="kelas_id" class="form-label">Kelas</label>
                                                 <select class="form-select" id="kelas_id" name="kelas_id" required>
                                                     <option value="" disabled {{ old('kelas_id') == '' ? 'selected' : '' }}>Pilih kelas</option>
@@ -126,25 +126,25 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                            </div>
-                                            <div class="mb-3">
+                                            </div> --}}
+                                            {{-- <div class="mb-3">
                                                 <label for="waktu_masuk" class="form-label">Waktu Masuk:</label>
                                                 <input type="time" class="form-control" id="waktu_masuk"
                                                     name="waktu_masuk" value="{{ $absis->waktu_masuk }}" required>
-                                            </div>
-                                            <div class="mb-3">
+                                            </div> --}}
+                                            {{-- <div class="mb-3">
                                                 <label for="waktu_pulang" class="form-label">Waktu Pulang:</label>
                                                 <input type="time" class="form-control" id="waktu_pulang"
                                                     name="waktu_pulang" value="{{ $absis->waktu_pulang }}" required>
-                                            </div>
-                                            <div class="mb-3">
+                                            </div> --}}
+                                            {{-- <div class="mb-3">
                                                 <label for="catatan" class="form-label">Catatan:</label>
                                                 <input type="text" class="form-control" id="catatan" name="catatan"
                                                     value="{{ $absis->catatan }}" required>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                            </div> --}}
+                                            {{-- <button type="submit" class="btn btn-primary">Simpan</button>
                                             <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Batal</button>
+                                                data-bs-dismiss="modal">Batal</button> --}}
                                     </form>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
                 <div class="modal-body">
                     <form method="POST" action="{{ route('kehadiran.store') }}">
                         @csrf
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="nama_siswa">Nama Siswa:</label>
                             <select class="form-select" name="id_siswa" id="id_siswa">
                                 <option value="" disabled>pilih siswa</option>
@@ -175,21 +175,21 @@
                                       <option value="{{ $nama_siswa->id}}">{{ $nama_siswa->name}}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
 
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="tanggal" class="form-label">Tanggal:</label>
                             <input type="date" class="form-control" id="tanggal" name="tanggal" required>
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="status_kehadiran" class="form-label">Status Kehadiran</label>
                             <select class="form-select" id="status_kehadiran" name="status_kehadiran" required>
                                 <option value="hadir" {{ old('hadir') == 'hadir' ? 'selected' : '' }}>
                                     Hadir</option>
-                                <option value="tidak hadir" {{ old('tidak hadir') == 'tidak hadir' ? 'selected' : '' }}>
+                                {{-- <option value="tidak hadir" {{ old('tidak hadir') == 'tidak hadir' ? 'selected' : '' }}>
                                     Tidak Hadir</option>
                                 <option value="izin" {{ old('izin') == 'izin' ? 'selected' : '' }}>
-                                    Izin</option>
+                                    Izin</option> --}}
                             </select>
                         </div>
                         <div class="form-group">
@@ -204,18 +204,18 @@
                             </select>
                             
                         </div>
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="waktu_masuk" class="form-label">Waktu Masuk:</label>
                             <input type="time" class="form-control" id="waktu_masuk" name="waktu_masuk" required>
-                        </div>
-                        <div class="mb-3">
+                        </div> --}}
+                        {{-- <div class="mb-3">
                             <label for="waktu_pulang" class="form-label">Waktu Pulang:</label>
                             <input type="time" class="form-control" id="waktu_pulang" name="waktu_pulang" required>
-                        </div>
-                        <div class="mb-3">
+                        </div> --}}
+                        {{-- <div class="mb-3">
                             <label for="catatan" class="form-label">Catatan:</label>
                             <input type="text" class="form-control" id="catatan" name="catatan" required>
-                        </div>
+                        </div> --}}
                         <button type="submit" class="btn btn-primary">Simpan</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
 

@@ -15,8 +15,6 @@ return new class extends Migration
             $table->string('nama_siswa')->nullable();
             $table->string('jenis_notifikasi');
             $table->date('tanggal_notifikasi');
-            $table->time('waktu_notifikasi');
-            $table->string('status_pengiriman');
             $table->text('informasi_tambahan')->nullable();
             // Foreign key to Kelas table
             $table->unsignedBigInteger('kelas_id');

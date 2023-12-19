@@ -25,13 +25,17 @@ class notifikasikehadiranController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'id_siswa' => 'required',
-            'kelas_id' => 'required',
-            'jenis_notifikasi' => 'required',
-            'tanggal_notifikasi' => 'required|date',
-            'waktu_notifikasi' => 'required',
-            'status_pengiriman' => 'required',
-            'informasi_tambahan' => 'nullable',
+                'id_siswa' => 'required',
+                'kelas_id' => 'required',
+                'jenis_notifikasi' => 'required',
+                'tanggal_notifikasi' => 'required|date',
+                'informasi_tambahan' => 'nullable',
+            ], [
+                'id_siswa.required' => 'Kolom ID Siswa harus diisi.',
+                'kelas_id.required' => 'Kolom Kelas ID harus diisi.',
+                'jenis_notifikasi.required' => 'Kolom Jenis Notifikasi harus diisi.',
+                'tanggal_notifikasi.required' => 'Kolom Tanggal Notifikasi harus diisi.',
+                'tanggal_notifikasi.date' => 'Kolom Tanggal Notifikasi harus berformat tanggal.',
         ]);
     
         try {
@@ -40,8 +44,6 @@ class notifikasikehadiranController extends Controller
                 'kelas_id' => $request->kelas_id,
                 'jenis_notifikasi' => $request->jenis_notifikasi,
                 'tanggal_notifikasi' => $request->tanggal_notifikasi,
-                'waktu_notifikasi' => $request->waktu_notifikasi,
-                'status_pengiriman' => $request->status_pengiriman,
                 'informasi_tambahan' => $request->informasi_tambahan,
             ]);
     
@@ -57,16 +59,12 @@ class notifikasikehadiranController extends Controller
         'id_siswa' => 'required',
         'jenis_notifikasi' => 'required',
         'tanggal_notifikasi' => 'required|date',
-        'waktu_notifikasi' => 'required',
-        'status_pengiriman' => 'required',
         'informasi_tambahan' => 'nullable',
     ], [
         'id_siswa.required' => 'Kolom nama siswa harus diisi.',
         'jenis_notifikasi.required' => 'Kolom jenis notifikasi harus diisi.',
         'tanggal_notifikasi.required' => 'Kolom tanggal notifikasi harus diisi.',
         'tanggal_notifikasi.date' => 'Format tanggal notifikasi tidak valid.',
-        'waktu_notifikasi.required' => 'Kolom waktu notifikasi harus diisi.',
-        'status_pengiriman.required' => 'Kolom status pengiriman harus diisi.',
     ]);
 
     if ($validator->fails()) {
@@ -79,8 +77,6 @@ class notifikasikehadiranController extends Controller
             'user_id' => $request->id_siswa,
             'jenis_notifikasi' => $request->jenis_notifikasi,
             'tanggal_notifikasi' => $request->tanggal_notifikasi,
-            'waktu_notifikasi' => $request->waktu_notifikasi,
-            'status_pengiriman' => $request->status_pengiriman,
             'informasi_tambahan' => $request->informasi_tambahan,
         ]);
     } catch (\Throwable $th) {
