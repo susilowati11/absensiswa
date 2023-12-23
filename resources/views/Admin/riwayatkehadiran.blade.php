@@ -6,35 +6,40 @@
 
         <form action="{{ route('riwayatkehadiran') }}" method="get" class="my-3">
             <div class="row">
-                <div class="col-md-2">
-                    <label for="hari">Pilih Hari:</label>
-                    <select name="hari" id="hari" class="form-control">
-                        @for ($day = 1; $day <= 31; $day++)
-                            <option value="{{ $day }}">{{ $day }}</option>
+                <div class="col-md-3">
+                    <label for="tanggal">Tanggal:</label>
+                    <input type="date" name="tanggal" value="{{ request('tanggal', session('tanggal')) }}"
+                        class="form-control">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="bulan">Bulan:</label>
+                    <select name="bulan" class="form-control">
+                        <option value="" selected>Pilih Bulan</option>
+                        @for ($i = 1; $i <= 12; $i++)
+                            <option value="{{ $i }}"
+                                {{ request('bulan', session('bulan')) == $i ? 'selected' : '' }}>
+                                {{ date('F', mktime(0, 0, 0, $i, 1)) }}
+                            </option>
                         @endfor
                     </select>
                 </div>
 
                 <div class="col-md-3">
-                    <label for="bulan">Pilih Bulan:</label>
-                    <select name="bulan" id="bulan" class="form-control">
-                        @for ($month = 1; $month <= 12; $month++)
-                            <option value="{{ $month }}">{{ date('F', mktime(0, 0, 0, $month, 1)) }}</option>
+                    <label for="tahun">Tahun:</label>
+                    <select name="tahun" class="form-control">
+                        <option value="" selected>Pilih Tahun</option>
+                        @for ($i = date('Y'); $i >= 2000; $i--)
+                            <option value="{{ $i }}"
+                                {{ request('tahun', session('tahun')) == $i ? 'selected' : '' }}>
+                                {{ $i }}
+                            </option>
                         @endfor
                     </select>
                 </div>
 
-                <div class="col-md-2">
-                    <label for="tahun">Pilih Tahun:</label>
-                    <select name="tahun" id="tahun" class="form-control">
-                        @for ($year = date('Y'); $year >= 2020; $year--)  <!-- Sesuaikan dengan tahun awal yang diinginkan -->
-                            <option value="{{ $year }}">{{ $year }}</option>
-                        @endfor
-                    </select>
-                </div>
-
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary mt-4">Filter</button>
+                <div class="col-md-1 mt-4">
+                    <button type="submit" class="btn btn-primary">Cari</button>
                 </div>
             </div>
         </form>

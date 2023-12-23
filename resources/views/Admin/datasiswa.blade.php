@@ -85,14 +85,16 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama siswa</label>
-                                <input type="text" class="form-control" id="name" name="name">
+                                <input type="text" class="form-control" id="name" name="name"
+                                    value="{{ old('name') }}">
                                 @error('name')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="nis" class="form-label">NIS</label>
-                                <input type="text" class="form-control" id="nis" name="nis">
+                                <input type="text" class="form-control" id="nis" name="nis"
+                                    value="{{ old('nis') }}">
                                 @error('nis')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -102,8 +104,10 @@
                                 <select class="form-select" id="kelas_id" name="kelas_id">
                                     <option value="" disabled selected>Pilih kelas</option>
                                     @foreach ($kelas as $kelasItem)
-                                        <option value="{{ $kelasItem->id }}">{{ $kelasItem->tingkat_kelas }} -
-                                            {{ $kelasItem->jurusan }}</option>
+                                        <option value="{{ $kelasItem->id }}"
+                                            @if (old('kelas_id') == $kelasItem->id) selected @endif>
+                                            {{ $kelasItem->tingkat_kelas }} - {{ $kelasItem->jurusan }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 @error('kelas_id')
@@ -114,8 +118,10 @@
                                 <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                                 <select class="form-select" id="jenis_kelamin" name="jenis_kelamin">
                                     <option value="" disabled selected>Pilih jenis kelamin</option>
-                                    <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
+                                    <option value="Laki-laki" @if (old('jenis_kelamin') == 'Laki-laki') selected @endif>Laki-laki
+                                    </option>
+                                    <option value="Perempuan" @if (old('jenis_kelamin') == 'Perempuan') selected @endif>Perempuan
+                                    </option>
                                 </select>
                                 @error('jenis_kelamin')
                                     <p class="text-danger">{{ $message }}</p>
@@ -123,28 +129,31 @@
                             </div>
                             <div class="mb-3">
                                 <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
-                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir">
+                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir"
+                                    value="{{ old('tanggal_lahir') }}">
                                 @error('tanggal_lahir')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="alamat" class="form-label">Alamat</label>
-                                <textarea class="form-control" id="alamat" name="alamat" rows="3"></textarea>
+                                <textarea class="form-control" id="alamat" name="alamat" rows="3">{{ old('alamat') }}</textarea>
                                 @error('alamat')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="no_tlp" class="form-label">Nomor Telepon</label>
-                                <input type="text" class="form-control" id="no_tlp" name="no_tlp">
+                                <input type="text" class="form-control" id="no_tlp" name="no_tlp"
+                                    value="{{ old('no_tlp') }}">
                                 @error('no_tlp')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email">
+                                <input type="email" class="form-control" id="email" name="email"
+                                    value="{{ old('email') }}">
                                 @error('email')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -206,7 +215,9 @@
                                 <div class="mb-3">
                                     <label for="jenis_kelamin">Jenis Kelamin</label>
                                     <select class="form-select" id="jenis_kelamin" name="jenis_kelamin">
-                                        <option value="" disabled selected>Pilih jenis kelamin</option>
+                                        <option value="" disabled
+                                            {{ $siswa->jenis_kelamin == '' ? 'selected' : '' }}>Pilih jenis kelamin
+                                        </option>
                                         <option value="Laki-laki"
                                             {{ $siswa->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                                         <option value="Perempuan"
@@ -216,6 +227,7 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="tanggal_lahir">Tanggal Lahir</label>
                                     <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir"

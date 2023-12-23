@@ -25,7 +25,6 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahKehadiranModal">
             + Kehadiran
         </button>
-
         <table class="table mt-1 ms-1">
             <thead class="table-light">
 
@@ -46,7 +45,7 @@
             <tbody>
                 @foreach ($kehadiran as $absis)
                     <tr>
-                        <th class="text-center">{{ $loop->iteration }}</th>
+                        <td class="text-center">{{ $loop->iteration }}</td>
                         <td class="text-center">{{ $absis->user->name }}</td>
                         <td class="text-center">{{ $absis->kelas->tingkat_kelas }}</td>
                         <td class="text-center">{{ $absis->kelas->jurusan }}</td>
@@ -224,6 +223,7 @@
             </div>
         </div>
     </div>
+</div>
 
 
 

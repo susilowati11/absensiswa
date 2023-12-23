@@ -35,6 +35,7 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::get('/',[HomeController::class,'index'])->name('home');
     // routes/web.php
+    
                                           
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
