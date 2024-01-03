@@ -13,27 +13,30 @@
             <div class="navbar-nav align-items-center ms-auto">
                 <div class="nav-item dropdown">
 
-                    <form action="{{ route('logout') }}" method="POST">
+                    <form action="{{ route('logout') }}" method="POST" class="d-flex align-items-center">
                         @csrf
-                        <button type="submit" class="btn btn-primary text-center">Logout</button>
+                        <button type="submit" class="btn btn-danger text-center" style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">
+                            <i class="fas fa-sign-out-alt me-1" style="font-size: 0.8rem;"></i> Logout
+                        </button>
                     </form>
                 </div>
         </nav>
-        <form action="{{ route('riwayatkehadiran') }}" method="get" class="my-3 mx-2">
-            <form action="{{ route('riwayatkehadiran') }}" method="get" class="my-3 mx-2">
-                <div class="row">
-                    <div class="col-md-6">
+        <div class="my-3">
+            <form action="{{ route('riwayatkehadiran') }}" method="get" class="mx-auto">
+                <div class="row justify-content-end">
+                    <div class="col-md-4">
                         <div class="input-group mb-3">
-                            <label for="tanggal" class="me-2">Tanggal Awal</label>
+                            <label for="tanggal" class="me-2" style="font-weight: bold; text-align: center; display: block;">Tanggal Awal:</label>
                             <input type="date" name="tanggal" value="{{ request('tanggal', session('tanggal')) }}"
                                 class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="input-group mb-3">
+                            <label for="tanggal" class="me-2" style="font-weight: bold; text-align: center; display: block;">Status Kehadiran:</label>
                             <select name="status_kehadiran" class="form-select">
                                 <option value="" {{ !request()->has('status_kehadiran') ? 'selected' : '' }}>Semua Status</option>
-                                
+        
                                 <option value="Hadir"{{ request('status_kehadiran') === 'Hadir' ? ' selected' : '' }}>Hadir
                                 </option>
                                 <option
@@ -49,7 +52,8 @@
                     </div>
                 </div>
             </form>
-
+        </div>
+        
             <div class="container">
                 <div class="card mt-3 mx-auto"
                     style="max-width: 1000px; width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
@@ -58,11 +62,7 @@
                     </div>
                     <div class="card-body p-3">
                         <table class="table table-bordered table-striped">
-                            <thead class="table-light">
-                                <link rel="stylesheet"
-                                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-                                    integrity="sha512-6e2b/+9cI+qXaip4qK8Fvfn3baNTIpF8h+VjFf6J6I5U0qGQ5T6MIYH21Ub5vEJ5tXG1FBaFBLBsr6HnQYzFw=="
-                                    crossorigin="anonymous" referrerpolicy="no-referrer" />
+                        <thead class="table-light">
                                 <tr>
                                     <th class="text-center">No</th>
                                     <th class="text-center">Nama siswa</th>

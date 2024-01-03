@@ -13,10 +13,13 @@
             <div class="navbar-nav align-items-center ms-auto">
                 <div class="nav-item dropdown">
 
-                    <form action="{{ route('logout') }}" method="POST">
+                    <form action="{{ route('logout') }}" method="POST" class="d-flex align-items-center">
                         @csrf
-                        <button type="submit" class="btn btn-primary text-center">Logout</button>
+                        <button type="submit" class="btn btn-danger text-center" style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">
+                            <i class="fas fa-sign-out-alt me-1" style="font-size: 0.8rem;"></i> Logout
+                        </button>
                     </form>
+                    
                 </div>
         </nav>
         <style>
@@ -68,27 +71,25 @@
                 </div>
                 <div class="col-md-6">
                     <!-- Profile picture -->
-                    <div class="card">
+                    <div class="card" style="max-width: 400px;">
                         <div class="card-body">
                             <h5 class="card-title">Profile Picture</h5>
-                            <img src="{{ asset('storage/' . auth()->user()->foto) }}" class="card-img-top"
-                                alt="Profile Picture">
-                                @php
-                                    $user = auth()->user();
-                                @endphp
+                            <img src="{{ asset('storage/' . auth()->user()->foto) }}" class="card-img-top img img-fluid h-2" alt="Profile Picture">
+                            @php
+                                $user = auth()->user();
+                            @endphp
                             <form action="{{ route('upload-photo', ['id' => $user->id] )  }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <div class="form-group">
+                                <div class="form-group mt-3">
                                     <label for="foto">Unggah Foto Baru:</label>
                                     <input type="file" class="form-control-file" id="foto" name="foto">
                                 </div>
-                                <button type="submit" class="btn btn-primary">Unggah Foto</button>
+                                <button type="submit" class="btn btn-primary mt-2">Unggah Foto</button>
                             </form>
                         </div>
                     </div>
-
                 </div>
-            </div>
+                
 
             <!-- Add other sections of the profile as needed -->
 

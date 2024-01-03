@@ -15,10 +15,11 @@
             <div class="navbar-nav align-items-center ms-auto">
                 <div class="nav-item dropdown">
 
-                    <!-- Tambahkan formulir logout di dalam dropdown-menu -->
-                    <form action="{{ route('logout') }}" method="POST">
+                    <form action="{{ route('logout') }}" method="POST" class="d-flex align-items-center">
                         @csrf
-                        <button type="submit" class="btn btn-primary text-center">Logout</button>
+                        <button type="submit" class="btn btn-danger text-center" style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">
+                            <i class="fas fa-sign-out-alt me-1" style="font-size: 0.8rem;"></i> Logout
+                        </button>
                     </form>
 
                 </div>
