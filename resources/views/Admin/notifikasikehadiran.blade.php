@@ -9,9 +9,6 @@
             <a href="#" class="sidebar-toggler flex-shrink-0">
                 <i class="fa fa-bars"></i>
             </a>
-            {{-- <form class="d-none d-md-flex ms-4">
-                <input class="form-control border-0" type="search" placeholder="Search">
-            </form> --}}
             <div class="navbar-nav align-items-center ms-auto">
                 <div class="nav-item dropdown">
 
@@ -24,51 +21,64 @@
 
         </nav>
 
-        <button class="btn btn-primary mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#tambahModal">
-            <i class="fas fa-plus"></i> Tambah Notifikasi</button>
-
-        <table class="table mt-1 ms-1">
-            <thead class="table-light">
-
-                <tr>
-                    <th class="text-center">nama</th>
-                    <th class="text-center">kelas</th>
-                    <th class="text-center">jurusan</th>
-                    <th class="text-center">Tanggal</th>
-                    <th class="text-center">Jenis Notifikasi</th>
-                    <th class="text-center">Informasi Tambahan</th>
-                    <th class="text-center">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($notifikasikehadiran as $notifikasi)
-                    <tr>
-                        <td class="text-center">{{ $notifikasi->user->name }}</td>
-                        <td class="text-center">{{ $notifikasi->kelas->tingkat_kelas }}</td>
-                        <td class="text-center">{{ $notifikasi->kelas->jurusan }}</td>
-                        <td class="text-center">{{ $notifikasi->tanggal_notifikasi }}</td>
-                        <td class="text-center">{{ $notifikasi->jenis_notifikasi }}</td>
-                        <td class="text-center">{{ $notifikasi->informasi_tambahan }}</td>
-
-                        <td class="text-center">
-                            <!-- modal update -->
-                            <button class="btn btn-success btn-sm me-auto" data-bs-toggle="modal"
-                                data-bs-target="#editModal{{ $notifikasi->id }}">
-                                <i class="fas fa-pen"></i> Edit
-                            </button>
-                            <br><br>
-                            <form action="{{ route('notifikasikehadiran.destroy', $notifikasi->id) }}" method="post">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-sm ms-auto" id="btn-delete"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                    <i class="fas fa-trash"></i> Hapus
-                                </button>
-                            </form>
-                        </td>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="container">
+            <button class="btn btn-primary mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#tambahModal">
+                <i class="fas fa-plus"></i> Tambah Notifikasi
+            </button>
+        
+            <div class="card mt-3 mx-auto" style="max-width: 1000px; width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="text-center">Daftar Notifikasi Kehadiran</h5>
+                </div>
+                <div class="card-body p-3">
+                    <table class="table table-bordered table-striped mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Nama</th>
+                                <th class="text-center">Kelas</th>
+                                <th class="text-center">Jurusan</th>
+                                <th class="text-center">Tanggal</th>
+                                <th class="text-center">Jenis Notifikasi</th>
+                                <th class="text-center">Informasi Tambahan</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($notifikasikehadiran as $notifikasi)
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ $notifikasi->user->name }}</td>
+                                    <td class="text-center">{{ $notifikasi->kelas->tingkat_kelas }}</td>
+                                    <td class="text-center">{{ $notifikasi->kelas->jurusan }}</td>
+                                    <td class="text-center">{{ $notifikasi->tanggal_notifikasi }}</td>
+                                    <td class="text-center">{{ $notifikasi->jenis_notifikasi }}</td>
+                                    <td class="text-center">{{ $notifikasi->informasi_tambahan }}</td>
+        
+                                    <td class="text-center">
+                                        <!-- modal update -->
+                                        <button class="btn btn-success btn-sm me-auto" data-bs-toggle="modal"
+                                            data-bs-target="#editModal{{ $notifikasi->id }}">
+                                            <i class="fas fa-pen"></i> Edit
+                                        </button>
+                                        <br><br>
+                                        <form action="{{ route('notifikasikehadiran.destroy', $notifikasi->id) }}" method="post">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger btn-sm ms-auto" id="btn-delete"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                <i class="fas fa-trash"></i> Hapus
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
         <!-- modal tambah -->
 
         <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -83,19 +93,20 @@
                         <form method="POST" action="{{ route('notifikasikehadiran.store') }}">
                             @csrf
                             <div class="mb-3">
-                                <label for="nama_siswa">Nama siswa</label>
+                                <label for="id_siswa">Nama siswa</label>
                                 <select class="form-select" name="id_siswa" id="id_siswa">
-                                    <option value="" disabled>Pilih siswa</option>
+                                    <option value="">Pilih siswa</option>
                                     @foreach ($user as $siswa)
                                         @if ($siswa->hasRole('user'))
                                             <option value="{{ $siswa->id }}">{{ $siswa->name }}</option>
                                         @endif
                                     @endforeach
                                 </select>
-                                @error('nama_siswa')
+                                @error('id_siswa') <!-- Perhatikan perubahan di sini -->
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
+                            
                             <div class="form-group">
                                 <label for="kelas_id" class="form-label">Kelas</label>
                                 <select class="form-select" id="kelas_id" name="kelas_id">
@@ -122,11 +133,7 @@
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
-                            {{-- <div class="mb-3">
-                                <label for="waktu_notifikasi">Waktu Notifikasi:</label>
-                                <input type="time" class="form-control" id="waktu_notifikasi" name="waktu_notifikasi"
-                                    required>
-                            </div> --}}
+                           
                             <div class="mb-3">
                                 <label for="jenis_notifikasi">Jenis Notifikasi:</label>
                                 <input type="text" class="form-control" id="jenis_notifikasi" name="jenis_notifikasi">
@@ -134,11 +141,7 @@
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
-                            {{-- <div class="mb-3">
-                                <label for="status_pengiriman">Status Pengiriman:</label>
-                                <input type="text" class="form-control" id="status_pengiriman"
-                                    name="status_pengiriman" required>
-                            </div> --}}
+                          
                             <div class="mb-3">
                                 <label for="informasi_tambahan">Informasi Tambahan:</label>
                                 <textarea class="form-control" id="informasi_tambahan" name="informasi_tambahan" rows="3"></textarea>
@@ -208,11 +211,7 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                {{-- <div class="mb-3">
-                                    <label for="waktu_notifikasi">Waktu Notifikasi:</label>
-                                    <input type="time" class="form-control" id="waktu_notifikasi"
-                                        name="waktu_notifikasi" value="{{ $notifikasi->waktu_notifikasi }}" required>
-                                </div> --}}
+                               
                                 <div class="mb-3">
                                     <label for="jenis_notifikasi">Jenis Notifikasi:</label>
                                     <input type="text" class="form-control" id="jenis_notifikasi"
@@ -221,11 +220,7 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                {{-- <div class="mb-3">
-                                    <label for="status_pengiriman">Status Pengiriman:</label>
-                                    <input type="text" class="form-control" id="status_pengiriman"
-                                        name="status_pengiriman" value="{{ $notifikasi->status_pengiriman }}" required>
-                                </div> --}}
+                               
                                 <div class="mb-3">
                                     <label for="informasi_tambahan">Informasi Tambahan:</label>
                                     <textarea class="form-control" id="informasi_tambahan" name="informasi_tambahan" rows="3">{{ $notifikasi->informasi_tambahan }}</textarea>

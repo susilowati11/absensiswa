@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+                    <div class="card-header fs-2">{{ __('Register') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
@@ -14,7 +14,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name"
-                                            class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                            class="form-label text-md-end">{{ __('Nama') }}</label>
                                         <input id="name" type="text"
                                             class="form-control @error('name') is-invalid @enderror" name="name"
                                             value="{{ old('name') }}" autocomplete="name" autofocus>
@@ -30,7 +30,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="email"
-                                            class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                                            class="form-label text-md-end">{{ __('Alamat Email') }}</label>
                                         <input id="email" type="email"
                                             class="form-control @error('email') is-invalid @enderror" name="email"
                                             value="{{ old('email') }}"  autocomplete="email">
@@ -45,7 +45,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="nis" class="col-md-4 col-form-label text-md-end">NIS</label>
+                                        <label for="nis" class="form-label text-md-end">NIS</label>
                                         <input type="number" class="form-control @error('nis') is-invalid @enderror"
                                             id="nis" name="nis" value="{{ old('nis') }}">
                                         @error('nis')
@@ -56,7 +56,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="jenis_kelamin" class="col-md-4 col-form-label text-md-end">Jenis
+                                        <label for="jenis_kelamin" class="form-label text-md-end">Jenis
                                             Kelamin</label>
                                         <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
                                             <option value="laki-laki"
@@ -71,7 +71,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="tanggal_lahir" class="col-md-4 col-form-label text-md-end">Tanggal
+                                        <label for="tanggal_lahir" class="form-label text-md-end">Tanggal
                                             Lahir</label>
                                         <input type="date"
                                             class="form-control @error('tanggal_lahir') is-invalid @enderror"
@@ -86,7 +86,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="no_tlp" class="col-md-4 col-form-label text-md-end">No Telepon</label>
+                                        <label for="no_tlp" class="form-label text-md-end">No Telepon</label>
                                         <input type="number" class="form-control @error('no_tlp') is-invalid @enderror"
                                             id="no_tlp" name="no_tlp" value="{{ old('no_tlp') }}" >
                                         @error('no_tlp')
@@ -97,7 +97,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="foto" class="col-md-4 col-form-label text-md-end">Foto Siswa</label>
+                                        <label for="foto" class="form-label text-md-end">Foto Siswa</label>
                                         <input type="file" class="form-control" id="foto" name="foto">
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="alamat" class="col-md-4 col-form-label text-md-end">Alamat</label>
+                                        <label for="alamat" class="form-label text-md-end">Alamat</label>
                                         <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" >{{ old('alamat') }}</textarea>
                                         @error('alamat')
                                             <p class="text-danger">{{ $message }}</p>
@@ -140,7 +140,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="password"
-                                            class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                                            class="form-label text-md-end">{{ __('Password') }}</label>
                                         <input id="password" type="password"
                                             class="form-control @error('password') is-invalid @enderror" name="password"
                                            autocomplete="new-password">
@@ -153,10 +153,10 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="password-confirm"
-                                            class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                                            class="form-label text-md-end">{{ __('Confirm Password') }}</label>
                                         <input id="password-confirm" type="password" class="form-control"
                                             name="password_confirmation" autocomplete="new-password">
                                     </div>

@@ -2,7 +2,23 @@
 
 @section('content')
     <div class="content">
+        
+        <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+            <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+            </a>
+            <a href="#" class="sidebar-toggler flex-shrink-0">
+                <i class="fa fa-bars"></i>
+            </a>
+            <div class="navbar-nav align-items-center ms-auto">
+                <div class="nav-item dropdown">
 
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-primary text-center">Logout</button>
+                    </form>
+                </div>
+        </nav>
         <style>
             .container {
                 margin-top: 30px;
@@ -57,7 +73,10 @@
                             <h5 class="card-title">Profile Picture</h5>
                             <img src="{{ asset('storage/' . auth()->user()->foto) }}" class="card-img-top"
                                 alt="Profile Picture">
-                            <form action="{{ route('upload-photo') }}" method="POST" enctype="multipart/form-data">
+                                @php
+                                    $user = auth()->user();
+                                @endphp
+                            <form action="{{ route('upload-photo', ['id' => $user->id] )  }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="foto">Unggah Foto Baru:</label>

@@ -1,7 +1,7 @@
 @extends('layouts.sidebar')
 
 @section('content')
-    <div class="content">
+    <div class="content px-2">
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
             <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -10,9 +10,6 @@
             <a href="#" class="sidebar-toggler flex-shrink-0">
                 <i class="fa fa-bars"></i>
             </a>
-            {{-- <form class="d-none d-md-flex ms-4">
-                <input class="form-control border-0" type="search" placeholder="Search">
-            </form> --}}
             <div class="navbar-nav align-items-center ms-auto">
                 <div class="nav-item dropdown">
                     <form action="{{ route('logout') }}" method="POST">
@@ -25,52 +22,61 @@
 
         <button class="btn btn-primary mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#tambahModal">
             <i class="fas fa-plus"></i> Tambah Siswa</button>
-
-        <table class="table mt-1 ms-1">
-            <thead class="table-light">
-                <tr>
-                    <th class="text-center">Nama Siswa</th>
-                    <th class="text-center">NIS</th>
-                    <th class="text-center">Kelas</th>
-                    <th class="text-center">Jenis Kelamin</th>
-                    <th class="text-center">Tanggal Lahir</th>
-                    <th class="text-center">Alamat</th>
-                    <th class="text-center">Nomor Telepon</th>
-                    <th class="text-center">Email</th>
-                    <th class="text-center">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($datasiswa as $siswa)
-                    <tr>
-                        <td class="text-center">{{ $siswa->name }}</td>
-                        <td class="text-center">{{ $siswa->nis }}</td>
-                        <td class="text-center">{{ $siswa->kelas->tingkat_kelas }} - {{ $siswa->kelas->jurusan }} </td>
-                        <td class="text-center">{{ $siswa->jenis_kelamin }}</td>
-                        <td class="text-center">{{ $siswa->tanggal_lahir }}</td>
-                        <td class="text-center">{{ $siswa->alamat }}</td>
-                        <td class="text-center">{{ $siswa->no_tlp }}</td>
-                        <td class="text-center">{{ $siswa->email }}</td>
-                        <td class="text-center">
-                            <!-- modal update -->
-                            <button class="btn btn-success btn-sm me-auto" data-bs-toggle="modal"
-                                data-bs-target="#editModal{{ $siswa->id }}">
-                                <i class="fas fa-pen"></i> Edit
-                            </button>
-                            <br><br>
-                            <form action="{{ route('datasiswa.destroy', $siswa->id) }}" method="post">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-sm ms-auto" id="btn-delete"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                    <i class="fas fa-trash"></i> Hapus
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+            <div class="card mt-3 mx-auto" style="max-width: 1000px; width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="text-center">Data Siswa</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-striped">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Nama Siswa</th>
+                                <th class="text-center">NIS</th>
+                                <th class="text-center">Kelas</th>
+                                <th class="text-center">Jenis Kelamin</th>
+                                <th class="text-center">Tanggal Lahir</th>
+                                <th class="text-center">Alamat</th>
+                                <th class="text-center">Nomor Telepon</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($datasiswa as $siswa)
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ $siswa->name }}</td>
+                                    <td class="text-center">{{ $siswa->nis }}</td>
+                                    <td class="text-center">{{ $siswa->kelas->tingkat_kelas }} - {{ $siswa->kelas->jurusan }} </td>
+                                    <td class="text-center">{{ $siswa->jenis_kelamin }}</td>
+                                    <td class="text-center">{{ $siswa->tanggal_lahir }}</td>
+                                    <td class="text-center">{{ $siswa->alamat }}</td>
+                                    <td class="text-center">{{ $siswa->no_tlp }}</td>
+                                    <td class="text-center">{{ $siswa->email }}</td>
+                                    <td class="text-center">
+                                        <!-- modal update -->
+                                        <button class="btn btn-success btn-sm me-auto" data-bs-toggle="modal"
+                                            data-bs-target="#editModal{{ $siswa->id }}">
+                                            <i class="fas fa-pen"></i> Edit
+                                        </button>
+                                        <br><br>
+                                        <form action="{{ route('datasiswa.destroy', $siswa->id) }}" method="post">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger btn-sm ms-auto" id="btn-delete"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                <i class="fas fa-trash"></i> Hapus
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
 
         <!-- Modal Tambah Siswa -->
         <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

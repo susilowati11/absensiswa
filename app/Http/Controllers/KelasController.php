@@ -17,16 +17,16 @@ class KelasController extends Controller
 
     public function store(Request $request)
     {
+        // Validate the incoming request data
+        $request->validate([
+            'jurusan' => 'required|string|max:255',
+            'tingkat_kelas' => 'required|numeric|min:1|max:255|unique:kelas', // Menambahkan aturan unique
+        ], [
+            'jurusan.required' => 'Kolom jurusan harus diisi.',
+            'tingkat_kelas.required' => 'Kolom tingkat kelas harus diisi.',
+            'tingkat_kelas.unique' => 'Kelas sudah ada dalam database.', // Pesan validasi jika kelas sudah ada
+        ]);
         try {
-            // Validate the incoming request data
-            $request->validate([
-                'jurusan' => 'required|string|max:255',
-                'tingkat_kelas' => 'required|numeric|min:1|max:255|unique:kelas', // Menambahkan aturan unique
-            ], [
-                'jurusan.required' => 'Kolom jurusan harus diisi.',
-                'tingkat_kelas.required' => 'Kolom tingkat kelas harus diisi.',
-                'tingkat_kelas.unique' => 'Kelas sudah ada dalam database.', // Pesan validasi jika kelas sudah ada
-            ]);
 
             // Create a new Kelas instance
             $kelas = Kelas::create([

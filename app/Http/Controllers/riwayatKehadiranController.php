@@ -17,30 +17,19 @@ class RiwayatkehadiranController extends Controller
         if ($request->has('tanggal')) {
             $query->whereDate('created_at', $request->tanggal);
         }
-
-        // Filter berdasarkan bulan
-        if ($request->has('bulan')) {
-            $query->whereMonth('created_at', $request->bulan);
+        
+        // Filter berdasarkan status kehadiran
+        if ($request->filled('status_kehadiran')) {
+            $query->where('status_kehadiran', $request->status_kehadiran);
         }
-
-        // Filter berdasarkan tahun
-        if ($request->has('tahun')) {
-            $query->whereYear('created_at', $request->tahun);
-        }
-
+        
+        // Simpan tanggal dalam session jika diperlukan
         if ($request->has('tanggal')) {
             session(['tanggal' => $request->tanggal]);
         }
-
-        if ($request->has('bulan')) {
-            session(['bulan' => $request->bulan]);
-        }
-
-        if ($request->has('tahun')) {   
-            session(['tahun' => $request->tahun]);
-        }
-
+        
         $riwayatKehadiran = $query->get();
+        
 
         $hariIni = Carbon::now()->isoFormat("YYYY-MM-DD");
 
@@ -50,7 +39,7 @@ class RiwayatkehadiranController extends Controller
         })->where("role", "user")->get();
 
         // Periksa waktu untuk menentukan apakah sudah melewati waktu absen
-        if (Carbon::now()->isoFormat("HH:mm") > "08:00") {
+        if (Carbon::now()->isoFormat("HH:mm") > "18:00") {
             foreach ($user as $key => $data) {
                 // Periksa apakah siswa sudah melakukan absen hari ini
                 if (!$data->kehadiran()->whereDate('created_at', $hariIni)->exists()) {

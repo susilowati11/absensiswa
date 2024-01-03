@@ -23,21 +23,26 @@ class KehadiranController extends Controller
 
         return view('User.kehadiran', compact('user', 'kehadiran', 'kelas'));
     }
-  
+
     public function store(Request $request)
     {
         $time = Carbon::now();
 
-        if ($time->diffInHours(Carbon::now()) < 8) {
-            $status = 'Tidak Hadir';
-        } else {
+        if ($time->diffInHours(Carbon::now()) < 18) {
             $status = 'Hadir';
+        } else {
+
+            $status = 'Tidak Hadir';
         }
 
         $request->validate([
-            'kelas_id' => 'required'
+            'status_kehadiran' => 'required',
+            'kelas_id' => 'required',
+        ], [
+            'status_kehadiran.required' => 'Kolom status kehadiran harus diisi.',
+            'kelas_id.required' => 'Kolom kelas harus diisi.',
         ]);
-    
+
         try {
             $userId = Auth::id();
             $hariIni = Carbon::now()->format('Y-m-d');

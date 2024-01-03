@@ -98,7 +98,8 @@ class DatasiswaController extends Controller
             'kelas_id' => $request->input('kelas_id'),
             'jenis_kelamin' => $request->input('jenis_kelamin'),
             'tanggal_lahir' => $request->input('tanggal_lahir'),
-            'alamat' => $request->input('alamat'),
+            'alamat' => $request->input
+            ('alamat'),
             'nomor_telepon' => $request->input('no_tlp'),
             'email' => $request->input('email'),
             // tambahkan bidang lainnya sesuai kebutuhan

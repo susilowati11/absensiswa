@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::prefix('upload-foto')->group(function () {
-        Route::post('/upload-photo', [ProfileController::class,'index'])->name('upload-photo');
+        Route::post('/upload-photo{id}', [ProfileController::class,'index'])->name('upload-photo');
         });
     });
 

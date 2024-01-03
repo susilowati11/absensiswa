@@ -61,7 +61,7 @@ class RegisterController extends Controller
             'jenis_kelamin' => ['required', 'in:laki-laki,perempuan'],
             'tanggal_lahir' => ['required', 'date'],
             'alamat' => ['required', 'string', 'max:255'],
-            'no_tlp' => ['required', 'numeric', 'digits:12'],
+            'no_tlp' => ['required', 'numeric', 'digits_between:12,15'],
             'foto' => ['required', 'max:2048'],
         ], [
             'name.required' => 'Nama harus diisi.',
@@ -86,7 +86,7 @@ class RegisterController extends Controller
             'alamat.max' => 'Alamat maksimal 255 karakter.',
             'no_tlp.required' => 'Nomor telepon harus diisi.',
             'no_tlp.numeric' => 'Nomor telepon harus berupa angka.',
-            'digits' => 'Nomor telepon harus terdiri dari 12 digit.',
+            'no_tlp.digits_between' => 'Nomor telepon harus terdiri dari 12 hingga 15 digit.',
             'foto.required' => 'Foto harus diunggah.',
             'foto.image' => 'File yang diunggah harus berupa gambar.',
             'foto.max' => 'Ukuran foto maksimal 2MB.',
@@ -108,7 +108,7 @@ class RegisterController extends Controller
         $foto = $data['foto'];
 
         // Menggunakan storeAs untuk menyimpan file dengan nama acak
-        $namaFoto = $foto->storeAs('', uniqid() . '.' . $foto->getClientOriginalExtension(), 'public');
+        $namaFoto = $foto->storeAs('foto', uniqid() . '.' . $foto->getClientOriginalExtension(), 'public');
 
         $user = User::create([
             'name' => $data['name'],

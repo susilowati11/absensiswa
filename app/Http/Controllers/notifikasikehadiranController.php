@@ -31,8 +31,8 @@ class notifikasikehadiranController extends Controller
                 'tanggal_notifikasi' => 'required|date',
                 'informasi_tambahan' => 'nullable',
             ], [
-                'id_siswa.required' => 'Kolom ID Siswa harus diisi.',
-                'kelas_id.required' => 'Kolom Kelas ID harus diisi.',
+                'id_siswa.required' => 'Kolom Nama Siswa harus diisi.',
+                'kelas_id.required' => 'Kolom Kelas harus diisi.',
                 'jenis_notifikasi.required' => 'Kolom Jenis Notifikasi harus diisi.',
                 'tanggal_notifikasi.required' => 'Kolom Tanggal Notifikasi harus diisi.',
                 'tanggal_notifikasi.date' => 'Kolom Tanggal Notifikasi harus berformat tanggal.',
