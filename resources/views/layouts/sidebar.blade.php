@@ -50,22 +50,28 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary">ABSEN SISWA</h3>
+                <a href="index.html" class="navbar-brand mx-4 mb-3"
+                    style="text-decoration: none; color: #3498db; transition: color 0.3s;">
+                    <h3 class="text-primary"
+                        style="font-family: 'Arial', sans-serif; font-weight: bold; margin: 0; transition: color 0.3s;">
+                        ABSEN SISWA
+                    </h3>
                 </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        {{-- <img class="rounded-circle" src="img/logosmk.jpg" alt=""
-                            style="width: 40px; height: 40px;"> --}}
-                        {{-- <div
-                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
-                        </div> --}}
-                    </div>
-                    <div class="ms-3">
-                        {{-- <h6 class="mb-0">MEMEI</h6> --}}
-                        <span>{{ Auth::user()->name }}</span>
+                <style>
+                    /* CSS untuk efek hover */
+                    .navbar-brand:hover h3 {
+                        color: #e74c3c;
+                        /* Ganti warna saat di-hover */
+                    }
+                </style>
+
+                <div class="d-flex align-items-center ms-4 mb-4 text-center">
+                    <div class="ms-3 mx-auto text-center">
+                        <span
+                            style="font-size: 1.2rem; font-weight: bold; color: #3498db;" class="ms-5">{{ Auth::user()->name }}</span>
                     </div>
                 </div>
+
                 <div class="navbar-nav w-100">
                     @if (Auth::user()->role == 'admin')
                         <a href="{{ route('home') }}" class="nav-item nav-link {{ Request::is('/*') ? 'active' : '' }}">
@@ -99,7 +105,7 @@
                         <hr class="my-1">
                         <a href="{{ route('siswa') }}"
                             class="nav-item nav-link {{ Request::is('siswa*') ? 'active' : '' }}">
-                            <i class="fa fa-users"></i>Profile
+                            <i class="fa fa-user-circle fa-1x"></i>Profil Siswa
                         </a>
                         <hr class="my-1">
                         <a href="{{ route('kehadiran') }}"

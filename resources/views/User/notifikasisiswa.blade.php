@@ -38,7 +38,8 @@
                         <tbody>
                             @foreach ($notifikasiSiswa as $notifikasi)
                                 <tr>
-                                    <td class="text-center">{{ $notifikasi->id }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    {{-- <td class="text-center">{{ $notifikasi->id }}</td> --}}
                                     <td class="text-center">{{ $notifikasi->user->name }}</td>
                                     <td class="text-center">{{ $notifikasi->jenis_notifikasi }}</td>
                                     <td class="text-center">{{ $notifikasi->informasi_tambahan }}</td>

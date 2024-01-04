@@ -11,10 +11,11 @@
             </a>
             <div class="navbar-nav align-items-center ms-auto">
                 <div class="nav-item dropdown">
-                   
+
                     <form action="{{ route('logout') }}" method="POST" class="d-flex align-items-center">
                         @csrf
-                        <button type="submit" class="btn btn-danger text-center" style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">
+                        <button type="submit" class="btn btn-danger text-center"
+                            style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">
                             <i class="fas fa-sign-out-alt me-1" style="font-size: 0.8rem;"></i> Logout
                         </button>
                     </form>
@@ -24,11 +25,13 @@
         </nav>
 
         <div class="container">
-            <button class="btn btn-primary mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#tambahModal">
+            <button class="btn btn-primary mt-2 ms-1 mb-2" data-bs-toggle="modal" data-bs-target="#tambahModal"
+                style="background-color: #3498db; border-color: #3498db; color: #ffffff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); border-radius: 20px;">
                 <i class="fas fa-plus"></i> Tambah Notifikasi
             </button>
-        
-            <div class="card mt-3 mx-auto" style="max-width: 1000px; width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+
+            <div class="card mt-0 mx-auto"
+                style="max-width: 1000px; width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
                 <div class="card-header bg-primary text-white">
                     <h5 class="text-center">Daftar Notifikasi Kehadiran</h5>
                 </div>
@@ -56,19 +59,18 @@
                                     <td class="text-center">{{ $notifikasi->tanggal_notifikasi }}</td>
                                     <td class="text-center">{{ $notifikasi->jenis_notifikasi }}</td>
                                     <td class="text-center">{{ $notifikasi->informasi_tambahan }}</td>
-        
                                     <td class="text-center">
-                                        <!-- modal update -->
-                                        <button class="btn btn-success btn-sm me-auto" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $notifikasi->id }}">
+                                        <button class="btn btn-warning btn-sm me-auto" data-bs-toggle="modal"
+                                            data-bs-target="#editModal{{ $notifikasi->id }}" style="font-size: 0.8rem;">
                                             <i class="fas fa-pen"></i> Edit
                                         </button>
-                                        <br><br>
-                                        <form action="{{ route('notifikasikehadiran.destroy', $notifikasi->id) }}" method="post">
+
+                                        <form action="{{ route('destroy', $notifikasi->id) }}" method="post" class="mt-2">
                                             @method('DELETE')
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm ms-auto" id="btn-delete"
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                            <button type="submit" class="btn btn-danger btn-sm" id="btn-delete"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"
+                                                style="font-size: 0.8rem;">
                                                 <i class="fas fa-trash"></i> Hapus
                                             </button>
                                         </form>
@@ -80,7 +82,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- modal tambah -->
 
         <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -104,11 +106,12 @@
                                         @endif
                                     @endforeach
                                 </select>
-                                @error('id_siswa') <!-- Perhatikan perubahan di sini -->
+                                @error('id_siswa')
+                                    <!-- Perhatikan perubahan di sini -->
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="kelas_id" class="form-label">Kelas</label>
                                 <select class="form-select" id="kelas_id" name="kelas_id">
@@ -135,15 +138,16 @@
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
-                           
+
                             <div class="mb-3">
                                 <label for="jenis_notifikasi">Jenis Notifikasi:</label>
-                                <input type="text" class="form-control" id="jenis_notifikasi" name="jenis_notifikasi">
+                                <input type="text" class="form-control" id="jenis_notifikasi"
+                                    name="jenis_notifikasi">
                                 @error('jenis_notifikasi')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
-                          
+
                             <div class="mb-3">
                                 <label for="informasi_tambahan">Informasi Tambahan:</label>
                                 <textarea class="form-control" id="informasi_tambahan" name="informasi_tambahan" rows="3"></textarea>
@@ -213,7 +217,7 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                               
+
                                 <div class="mb-3">
                                     <label for="jenis_notifikasi">Jenis Notifikasi:</label>
                                     <input type="text" class="form-control" id="jenis_notifikasi"
@@ -222,7 +226,7 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                               
+
                                 <div class="mb-3">
                                     <label for="informasi_tambahan">Informasi Tambahan:</label>
                                     <textarea class="form-control" id="informasi_tambahan" name="informasi_tambahan" rows="3">{{ $notifikasi->informasi_tambahan }}</textarea>

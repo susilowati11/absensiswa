@@ -48,7 +48,7 @@
                     <div class="col-md-3">
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-search"></i> Cari
-                        </button>
+                        </button>                        
                     </div>
                 </div>
             </form>

@@ -109,47 +109,62 @@ class DatasiswaController extends Controller
         // Alihkan ke halaman indeks setelah membuat data
     }
 
-    public function update(Request $request, $user_id)
-    {
-        $datasiswa = Datasiswa::where('user_id', $user_id)->first();
-        // dd($datasiswa);
-        if (!$datasiswa) {
-            return redirect()->back()->with('error', 'Data not found for ID: ' . $user_id);
-        }
-
-        // Update the associated User if email changes
-        // if ($request->input('email') != optional($datasiswa->user)->email) {
-        // dd($user);
-        if ($datasiswa->user) {
-            $datasiswa->user->update([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
+        public function update(Request $request, $user_id)
+        {
+            $datasiswa = Datasiswa::where('user_id', $user_id)->first();
+            // dd($datasiswa);
+            if (!$datasiswa) {
+                return redirect()->back()->with('error', 'Data not found for ID: ' . $user_id);
+            }
+        
+            // Validasi data untuk mengupdate Datasiswa
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                'nis' => 'required|string|max:20|unique:datasiswa,nis,' . $datasiswa->id,
+                'kelas_id' => 'required|exists:kelas,id',
+                'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+                'tanggal_lahir' => 'required|date',
+                'alamat' => 'required|string|max:255',
+                'no_tlp' => ['required', 'numeric', 'digits:12'],
+                'email' => 'required|email|unique:datasiswa,email,' . $datasiswa->id,
+            ]);
+        
+            // Jika validasi gagal, kembalikan respon dengan pesan kesalahan
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+        
+            // Update the associated User if email changes
+            if ($datasiswa->user) {
+                $datasiswa->user->update([
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+                    'nis' => $request->input('nis'),
+                    'kelas_id' => $request->input('kelas_id'),
+                    'jenis_kelamin' => $request->input('jenis_kelamin'),
+                    'tanggal_lahir' => $request->input('tanggal_lahir'),
+                    'alamat' => $request->input('alamat'),
+                    'no_tlp' => $request->input('no_tlp'),
+                ]);
+            }
+        
+            // Update the Datasiswa record
+            $datasiswa->update([
+                'nama_siswa' => $request->input('name'),
                 'nis' => $request->input('nis'),
                 'kelas_id' => $request->input('kelas_id'),
                 'jenis_kelamin' => $request->input('jenis_kelamin'),
                 'tanggal_lahir' => $request->input('tanggal_lahir'),
                 'alamat' => $request->input('alamat'),
-                'no_tlp' => $request->input('no_tlp'),
+                'nomor_telepon' => $request->input('no_tlp'),
+                'email' => $request->input('email'),
+                // add other fields as needed
             ]);
-        }
-
-
-        // Update the Datasiswa record
-        $datasiswa->update([
-            'nama_siswa' => $request->input('name'),
-            'nis' => $request->input('nis'),
-            'kelas_id' => $request->input('kelas_id'),
-            'jenis_kelamin' => $request->input('jenis_kelamin'),
-            'tanggal_lahir' => $request->input('tanggal_lahir'),
-            'alamat' => $request->input('alamat'),
-            'nomor_telepon' => $request->input('no_tlp'),
-            'email' => $request->input('email'),
-            // add other fields as needed
-        ]);
-
-        return redirect()->back()->with('success', 'Data Berhasil diupdate');
-    }
-
+        
+            return redirect()->back()->with('success', 'Data Berhasil diupdate');
+        }    
 
    public function destroy($user_id)
 {

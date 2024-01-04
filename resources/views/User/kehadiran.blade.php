@@ -22,12 +22,12 @@
         </nav>
 
         <div class="container mt-3">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahKehadiranModal">
-                + Kehadiran
-            </button>
+            <button class="btn btn-primary mt-2 ms-1 mb-2" data-bs-toggle="modal" data-bs-target="#tambahModal" style="background-color: #3498db; border-color: #3498db; color: #ffffff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); border-radius: 20px;">
+                <i class="fas fa-plus"></i> Tambah Kehadiran
+            </button>  
         </div>
         
-            <div class="card mt-3 mx-auto" style="max-width: 1000px; width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+            <div class="card mt-0 mx-auto" style="max-width: 1000px; width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
                 <div class="card-header bg-primary text-white">
                     <h5 class="text-center">Daftar Kehadiran Siswa</h5>
                 </div>

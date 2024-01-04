@@ -22,9 +22,10 @@
             </div>
         </nav>
 
-        <button class="btn btn-primary mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#tambahModal">
-            <i class="fas fa-plus"></i> Tambah Siswa</button>
-            <div class="card mt-3 mx-auto" style="max-width: 1000px; width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+        <button class="btn btn-primary mt-2 ms-1 mb-2" data-bs-toggle="modal" data-bs-target="#tambahModal" style="background-color: #3498db; border-color: #3498db; color: #ffffff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); border-radius: 20px;">
+            <i class="fas fa-plus"></i> Tambah Siswa
+        </button>  
+            <div class="card mt-0 mx-auto" style="max-width: 1000px; width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
                 <div class="card-header bg-primary text-white">
                     <h5 class="text-center">Data Siswa</h5>
                 </div>
@@ -57,21 +58,20 @@
                                     <td class="text-center">{{ $siswa->no_tlp }}</td>
                                     <td class="text-center">{{ $siswa->email }}</td>
                                     <td class="text-center">
-                                        <!-- modal update -->
-                                        <button class="btn btn-success btn-sm me-auto" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $siswa->id }}">
+                                        <button class="btn btn-warning btn-sm me-auto" data-bs-toggle="modal"
+                                                data-bs-target="#editModal{{ $siswa->id }}" style="font-size: 0.8rem;">
                                             <i class="fas fa-pen"></i> Edit
                                         </button>
-                                        <br><br>
-                                        <form action="{{ route('datasiswa.destroy', $siswa->id) }}" method="post">
+                                    
+                                        <form action="{{ route('destroy', $siswa->id) }}" method="post" class="mt-2">
                                             @method('DELETE')
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm ms-auto" id="btn-delete"
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                            <button type="submit" class="btn btn-danger btn-sm" id="btn-delete"
+                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" style="font-size: 0.8rem;">
                                                 <i class="fas fa-trash"></i> Hapus
                                             </button>
                                         </form>
-                                    </td>
+                                    </td>  
                                 </tr>
                             @endforeach
                         </tbody>
