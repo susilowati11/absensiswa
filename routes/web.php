@@ -56,9 +56,14 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [NotifikasiSiswaController::class, 'index'])->name('notifikasi-siswa');
         });
 
-        Route::prefix('upload-foto')->group(function () {
-        Route::post('/upload-photo{id}', [ProfileController::class,'index'])->name('upload-photo');
-        });
+        Route::get('/upload-foto/upload-photo/{id}', [ProfileController::class, 'index'])->name('upload-photo');
+        Route::put('/upload-foto/upload-photo/{id}', [ProfileController::class, 'index'])->name('upload-photo');
+
+        // Route::prefix('upload-foto')->group(function () {
+        // // Route::post('/upload-photo/{id}', [ProfileController::class,'index'])->name('upload-photo');
+        // // Route::resource('/upload-photo', ProfileController::class);
+        // Route::post('/upload-foto/upload-photo/{id}', [ProfileController::class, 'index'])->name('upload-photo');
+        // });
     });
 
 

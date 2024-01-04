@@ -113,7 +113,8 @@
                             <i class="fa fa-clipboard-check"></i>Kehadiran
                         </a>
                         <hr class="my-1">
-                        <a href="{{ route('notifikasi-siswa') }}" class="nav-item nav-link">
+                        <a href="{{ route('notifikasi-siswa') }}"
+                         class="nav-item nav-link {{ Request::is('notifikasi-siswa*') ? 'active' : ''}}">
                             <i class="fa fa-bell"></i>Notifikasi Siswa
                         </a>
                     @endif

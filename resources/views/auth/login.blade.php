@@ -3,11 +3,16 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header fs-2">{{ __('Masuk') }}</div>
+        <div class="col-md-5">
+            <div class="card rounded-top"> <!-- Add the 'rounded-top' class here -->
+                <div class="card-header fs-5">{{ __('Masuk') }}</div>
 
-                <div class="card-body">
+                <div class="card-body text-center">
+                    <!-- Add a wrapper div for the logo with a class for styling -->
+                    <div class="logo-container mb-4">
+                        <img src="img/logosmk.jpg" alt="Your Image Alt Text" class="img-fluid mx-auto d-block logo" style="max-height: 150px;">
+                    </div>
+
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -39,70 +44,89 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                        <div class="row mb-3">
+                            <div class="col-md-8 offset-md-2 text-center">
+                                <button type="submit" class="btn btn-primary btn-lg w-100"> <!-- Added 'w-100' for full width -->
                                     {{ __('Login') }}
                                 </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
                             </div>
                         </div>
                     </form>
                     <style>
                         body {
-                            background-color: #f8f9fa; /* Warna latar belakang */
+                            background-color: #f8f9fa; 
                         }
                     
                         .card {
                             margin-top: 50px;
-                            border: 1px solid #ddd; /* Garis tepi kartu */
-                            border-radius: 8px; /* Sudut bulat kartu */
-                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan kartu */
+                            border: 1px solid #ddd;
+                            border-radius: 8px; 
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                            background-color: #ffffff;
+                        }
+
+                        .rounded-top {
+                            border-top-left-radius: 8px; 
+                            border-top-right-radius: 8px; 
                         }
                     
                         .card-header {
-                            background-color: #007bff; /* Warna latar belakang header kartu */
-                            color: #fff; /* Warna teks header kartu */
-                            border-bottom: 1px solid #0069d9; /* Garis tepi bawah header kartu */
+                            background-color: #007bff;
+                            color: #fff;
+                            border-bottom: 1px solid #0069d9;
                         }
                     
                         .card-body {
-                            padding: 20px; /* Ruang di dalam kartu */
+                            padding: 20px;
+                        }
+
+                        /* Add styles for the logo container and hover effect */
+                        .logo-container {
+                            position: relative;
+                            overflow: hidden;
+                        }
+
+                        .logo {
+                            transition: transform 0.3s ease-in-out;
+                        }
+
+                        /* Apply the hover effect on the logo */
+                        .logo-container:hover .logo {
+                            transform: scale(1.1);
                         }
                     
                         label {
                             font-weight: bold;
                             margin-bottom: 0.5rem;
+                            color: #495057;
                         }
                     
                         input {
                             margin-bottom: 1rem;
+                            border: 1px solid #ced4da;
+                            padding: 0.375rem 0.75rem;
+                            border-radius: 0.25rem;
                         }
                     
                         .btn-primary {
-                            background-color: #007bff; /* Warna tombol login */
+                            background-color: #007bff;
                             border-color: #007bff;
+                            color: #fff;
                         }
                     
                         .btn-primary:hover {
-                            background-color: #0056b3; /* Warna hover tombol login */
+                            background-color: #0056b3;
                             border-color: #0056b3;
                         }
                     
                         .btn-link {
-                            color: #007bff; /* Warna tautan lupa kata sandi */
+                            color: #007bff;
                         }
                     
                         .btn-link:hover {
-                            text-decoration: underline; /* Garis bawah pada hover tautan lupa kata sandi */
+                            text-decoration: underline;
                         }
                     </style>
-                    
                 </div>
             </div>
         </div>

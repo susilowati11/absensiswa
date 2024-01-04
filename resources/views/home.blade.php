@@ -31,8 +31,8 @@
                         <a href="#" class="dropdown-item text-center">See all notifications</a>
                     </div>
                 </div>
-                {{-- //logout --}}
-                <form action="{{ route('logout') }}" method="POST" class="d-flex align-items-center">
+                <!-- Tambahkan formulir logout di dalam dropdown-menu -->
+                <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-danger text-center" style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">
                         <i class="fas fa-sign-out-alt me-1" style="font-size: 0.8rem;"></i> Logout
@@ -59,7 +59,7 @@
                     text-align: center;
                     padding: 1em;
                     box-shadow: 0 0 10px rgba(0, 0, 0, 1.5);
-                    margin-bottom:20px;
+                    margin-bottom: 20px;
                 }
 
                 section {
@@ -76,6 +76,7 @@
                     background-color: #fff;
                     border-radius: 8px;
                     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                    transition: transform 0.3s ease-in-out;
                 }
 
                 .dashboard-item img {
@@ -83,6 +84,11 @@
                     height: auto;
                     border-radius: 8px;
                     margin-bottom: 10px;
+                }
+
+                .dashboard-item:hover {
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+                    transform: scale(1.05);
                 }
 
                 @media (max-width: 600px) {
@@ -112,8 +118,7 @@
                         <div>
                             <h2>SMK NEGERI TAMBAKBOYO</h2>
                             <p>SMK BISA, HEBAT </p>
-                            <p> "Jangan takut salah ketika menuntut ilmu karena banyak orang sukses belajar dari sebuah
-                                kesalahan."</p>
+                            <p> "Jangan takut salah ketika menuntut ilmu karena banyak orang sukses belajar dari sebuah kesalahan."</p>
                         </div>
                     </div>
                 </div>

@@ -82,7 +82,7 @@
                             @enderror
                         </div>
                         
-                        <div class="form-group">
+                        <div class="form-group mp-1">
                             <label for="kelas_id" class="form-label">Kelas</label>
                             <select class="form-select" id="kelas_id" name="kelas_id">
                                 <option value="" disabled {{ old('kelas_id') == '' ? 'selected' : '' }}>Pilih kelas
@@ -98,9 +98,11 @@
                                 <P class="text-danger">{{ $message }}</P>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-
+                        <div style="margin-top: 10px;">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        </div>
+ 
                     </form>
                 </div>
             </div>

@@ -220,21 +220,21 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
+                                
                                 <div class="mb-3">
                                     <label for="jenis_kelamin">Jenis Kelamin</label>
                                     <select class="form-select" id="jenis_kelamin" name="jenis_kelamin">
-                                        <option value="" disabled
-                                            {{ $siswa->jenis_kelamin == '' ? 'selected' : '' }}>Pilih jenis kelamin
-                                        </option>
-                                        <option value="Laki-laki"
-                                            {{ $siswa->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                                        <option value="Perempuan"
-                                            {{ $siswa->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                        <option value="" disabled>Pilih jenis kelamin</option>
+                                        <option value="Laki-laki" {{ $siswa->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                        <option value="Perempuan" {{ $siswa->jenis_kelamin == 'p  erempuan' ? 'selected' : '' }}>Perempuan</option>
                                     </select>
                                     @error('edit_jenis_kelamin')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
+                                
+                                
+                                
 
                                 <div class="mb-3">
                                     <label for="tanggal_lahir">Tanggal Lahir</label>

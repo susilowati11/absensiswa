@@ -147,7 +147,6 @@
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
-
                             <div class="mb-3">
                                 <label for="informasi_tambahan">Informasi Tambahan:</label>
                                 <textarea class="form-control" id="informasi_tambahan" name="informasi_tambahan" rows="3"></textarea>
@@ -217,7 +216,6 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-
                                 <div class="mb-3">
                                     <label for="jenis_notifikasi">Jenis Notifikasi:</label>
                                     <input type="text" class="form-control" id="jenis_notifikasi"
@@ -226,7 +224,6 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-
                                 <div class="mb-3">
                                     <label for="informasi_tambahan">Informasi Tambahan:</label>
                                     <textarea class="form-control" id="informasi_tambahan" name="informasi_tambahan" rows="3">{{ $notifikasi->informasi_tambahan }}</textarea>

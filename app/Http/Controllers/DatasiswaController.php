@@ -17,21 +17,14 @@ class DatasiswaController extends Controller
     {
         $datasiswa = User::where('role', 'user')->get();
         $kelas = Kelas::all();
-        // dd($datasiswa);
         return view('admin.datasiswa', compact('datasiswa', 'kelas'));
     }
-
-    // Assuming you are trying to create a Datasiswa and associate it with a User
-    // ...
 
     public function store(Request $request)
     {
 
-        // dd($request);
-        // Validasi data untuk membuat Datasiswa
         $validator = Validator::make($request->all(), [
-            // 'user_id' => 'required|exists:users,id',
-            'name' => 'required|string|max:255', // Validasi bahwa nama_siswa harus diisi
+            'name' => 'required|string|max:255', 
             'nis' => 'required|string|max:20|unique:datasiswa,nis',
             'kelas_id' => 'required|exists:kelas,id',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
@@ -41,8 +34,6 @@ class DatasiswaController extends Controller
             'email' => 'required|email|unique:datasiswa,email',
 
         ], [
-            // 'user_id.required' => 'Kolom User ID harus diisi.',
-            // 'user_id.exists' => 'User dengan ID yang dimasukkan tidak ditemukan.',
             'name.required' => 'Kolom Nama harus diisi.',
             'name.string' => 'Kolom Nama harus berupa teks.',
             'name.max' => 'Kolom Nama tidak boleh lebih dari :max karakter.',
@@ -65,19 +56,15 @@ class DatasiswaController extends Controller
             'email.required' => 'Kolom Email harus diisi.',
             'email.email' => 'Format Email tidak valid.',
             'email.unique' => 'Email sudah digunakan oleh siswa lain.',
-            // Tambahkan validasi untuk bidang lainnya sesuai kebutuhan
         ]);
         
 
-        // Jika validasi gagal, kembalikan respon dengan pesan kesalahan
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
 
-            // return response()->json($validator->errors());
         }
-        // Buat pengguna baru
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -90,7 +77,6 @@ class DatasiswaController extends Controller
             'no_tlp' => $request->input('no_tlp'),
         ]);
         $user->save();
-        // Buat data siswa baru (Datasiswa)
         $datasiswa = Datasiswa::create([
             'user_id' => $user->id,
             'nama_siswa' => $request->input('name'),
@@ -102,11 +88,9 @@ class DatasiswaController extends Controller
             ('alamat'),
             'nomor_telepon' => $request->input('no_tlp'),
             'email' => $request->input('email'),
-            // tambahkan bidang lainnya sesuai kebutuhan
         ]);
         $datasiswa->save();
         return redirect()->back()->with('success', 'Data Berhasil ditambahkan');
-        // Alihkan ke halaman indeks setelah membuat data
     }
 
         public function update(Request $request, $user_id)

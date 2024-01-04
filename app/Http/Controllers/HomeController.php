@@ -29,28 +29,6 @@ class HomeController extends Controller
     {
         $user = User::find(Auth::user()->id);
         $currentDate = Carbon::now()->toDateString();
-
-    //     $kehadiranToday = $user->kehadiran()
-    //     ->where(function ($query) use ($currentDate) {
-    //         $query->whereDate('created_at', $currentDate);
-    //     })
-    //     ->get();
-    
-    // //    dd($kehadiranToday == null );
-    //     if($kehadiranToday->isEmpty()){
-    //         // dd(Carbon::now()->isoFormat("HH:mm"));
-    //         if(Carbon::now()->isoFormat("HH:mm") > "08:00")
-    //         {
-    //             if ($user->kelas) {
-    //              Kehadiran::create([
-    //                 'user_id' => $user->id,
-    //                 'status_kehadiran' => 'tidak hadir',
-    //                 'kelas_id' => $user->kelas->id// Menyimpan kelas_id
-    //             ]);
-    //         }
-
-    //         }
-    //     }
         return view('home');
     }
 

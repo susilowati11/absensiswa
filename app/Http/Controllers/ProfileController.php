@@ -15,7 +15,7 @@ class ProfileController extends Controller
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        try {
+        try {   
             $user = User::find($id);
 
             if (!$user) {
@@ -33,10 +33,11 @@ class ProfileController extends Controller
 
             // Update user with the new photo path
             $user->update(['foto' => $fotoPath]);
-
-            return redirect()->back()->with('success', 'Foto profil berhasil diunggah.');
+            // dd($user);
+            return redirect()->route('upload-photo', ['id' => $user->id])->with('success', 'Foto profil berhasil diunggah.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to upload photo: ' . $e->getMessage());
+            return redirect()->route('upload-photo', ['id' => $user->id])->with('error', 'Failed to upload photo: ' . $e->getMessage());
         }
     }
+
 }

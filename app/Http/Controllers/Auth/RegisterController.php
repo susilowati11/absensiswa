@@ -138,15 +138,25 @@ class RegisterController extends Controller
         return $user;
     }
 
-    /**
-     * The user has been registered.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function registered(Request $request, $user)
-    {
-        return redirect()->route('login')->with('success', 'Registrasi berhasil. Silakan login.');
+   /**
+ * The user has been registered.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @param  mixed  $user
+ * @return mixed
+ */
+protected function registered(Request $request, $user)
+{
+    // Validasi tambahan untuk memastikan email tidak terdaftar lagi
+    $emailExists = User::where('email', $request->input('email'))->exists();
+
+    return redirect()->route('login')->with('success', 'Registrasi berhasil. Silakan login.');
+    
+    if ($emailExists) {
+        // Jika email sudah terdaftar, logika untuk menampilkan pesan alert di sini
+        // Anda dapat menggunakan session atau langsung memasukkan pesan ke dalam redirect
+        return redirect()->route('register')->with('error', 'Email sudah digunakan. Silakan gunakan email lain.');
     }
+}
+
 }

@@ -22,24 +22,24 @@
                     </form>
                     <style>
                         body {
-                            background-color: #f8f9fa; /* Warna latar belakang */
+                            background-color: #f8f9fa;
                         }
                     
                         .card {
                             margin-top: 50px;
-                            border: 1px solid #ddd; /* Garis tepi kartu */
-                            border-radius: 8px; /* Sudut bulat kartu */
-                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan kartu */
+                            border: 1px solid #ddd; 
+                            border-radius: 8px;
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                         }
                     
                         .card-header {
-                            background-color: #007bff; /* Warna latar belakang header kartu */
-                            color: #fff; /* Warna teks header kartu */
-                            border-bottom: 1px solid #0069d9; /* Garis tepi bawah header kartu */
+                            background-color: #007bff; 
+                            color: #fff;
+                            border-bottom: 1px solid #0069d9; 
                         }
                     
                         .card-body {
-                            padding: 20px; /* Ruang di dalam kartu */
+                            padding: 20px; 
                         }
                     
                         label {
@@ -52,21 +52,21 @@
                         }
                     
                         .btn-primary {
-                            background-color: #007bff; /* Warna tombol login */
+                            background-color: #007bff; 
                             border-color: #007bff;
                         }
                     
                         .btn-primary:hover {
-                            background-color: #0056b3; /* Warna hover tombol login */
+                            background-color: #0056b3;
                             border-color: #0056b3;
                         }
                     
                         .btn-link {
-                            color: #007bff; /* Warna tautan lupa kata sandi */
+                            color: #007bff; 
                         }
                     
                         .btn-link:hover {
-                            text-decoration: underline; /* Garis bawah pada hover tautan lupa kata sandi */
+                            text-decoration: underline; 
                         }
                     </style>
                 </div>

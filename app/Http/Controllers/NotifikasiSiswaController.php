@@ -3,24 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\NotifikasiSiswa;
-use App\Models\Kehadiran; // Tambahkan use statement untuk model Kehadiran
-use App\Models\NotifikasiKehadiran; // Tambahkan use statement untuk model NotifikasiKehadiran
+use App\Models\Kehadiran;
+use App\Models\NotifikasiKehadiran;
 use Illuminate\Http\Request;
 
 class NotifikasiSiswaController extends Controller
 {
     public function index()
     {
-        $notifikasiSiswa = NotifikasiKehadiran::where('user_id',auth()->user()->id)->get();  
-        // try {
-        //     $notifikasiSiswa = NotifikasiSiswa::with('notifikasiKehadiran', 'siswa')
-        //     ->where('siswa_id', auth()->user()->id)
-        //     ->get();        
-        //     // dd($notifikasiSiswa);
-        // } catch (\Exception $e) {
-        //     dd($e->getMessage()); // Tampilkan pesan kesalahan
-        // }
-        // dd($notifikasiSiswa);       
+        $notifikasiSiswa = NotifikasiKehadiran::where('user_id',auth()->user()->id)->get();   
         return view('user.notifikasisiswa', compact('notifikasiSiswa'));
     }
 

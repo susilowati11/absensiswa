@@ -3,9 +3,13 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header fs-2">{{ __('Register') }}</div>
+
+                    <div class="photo-container mb-4">
+                        <img src="img/logosmk.jpg" alt="Your Image Alt Text" class="img-fluid mx-auto d-block photo" style="max-height: 150px;">
+                    </div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
@@ -60,10 +64,10 @@
                                             Kelamin</label>
                                         <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
                                             <option value="laki-laki"
-                                                {{ old('jenis_kelamin') == 'laki-laki' ? 'selected' : '' }}>
+                                                {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>
                                                 Laki-Laki</option>
                                             <option value="perempuan"
-                                                {{ old('jenis_kelamin') == 'perempuan' ? 'selected' : '' }}>
+                                                {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>
                                                 Perempuan</option>
                                         </select>
                                     </div>
@@ -162,42 +166,45 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="row mb-0"> --}}
-                            {{-- <div class="col-md-6 offset-md-4"> --}}
-                            <button type="submit" class="btn btn-primary" style="width: 700px">
+                            <button type="submit" class="btn btn-primary" style="width: 850px">
                                 Daftar
                             </button>
-                            {{-- </div> --}}
-                            {{-- </div> --}}
                         </form>
                         <style>
                             body {
                                 background-color: #f8f9fa;
-                                /* Warna latar belakang */
                             }
 
                             .card {
                                 margin-top: 50px;
                                 border: 1px solid #ddd;
-                                /* Garis tepi kartu */
                                 border-radius: 8px;
-                                /* Sudut bulat kartu */
                                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                                /* Bayangan kartu */
                             }
 
                             .card-header {
                                 background-color: #007bff;
-                                /* Warna latar belakang header kartu */
                                 color: #fff;
-                                /* Warna teks header kartu */
                                 border-bottom: 1px solid #0069d9;
-                                /* Garis tepi bawah header kartu */
                             }
 
                             .card-body {
                                 padding: 20px;
-                                /* Ruang di dalam kartu */
+                            }
+
+                            /* Add styles for the photo container and hover effect */
+                            .photo-container {
+                                position: relative;
+                                overflow: hidden;
+                            }
+
+                            .photo {
+                                transition: transform 0.3s ease-in-out;
+                            }
+
+                            /* Apply the hover effect on the photo */
+                            .photo-container:hover .photo {
+                                transform: scale(1.1);
                             }
 
                             label {
@@ -211,24 +218,20 @@
 
                             .btn-primary {
                                 background-color: #007bff;
-                                /* Warna tombol login */
                                 border-color: #007bff;
                             }
 
                             .btn-primary:hover {
                                 background-color: #0056b3;
-                                /* Warna hover tombol login */
                                 border-color: #0056b3;
                             }
 
                             .btn-link {
                                 color: #007bff;
-                                /* Warna tautan lupa kata sandi */
                             }
 
                             .btn-link:hover {
                                 text-decoration: underline;
-                                /* Garis bawah pada hover tautan lupa kata sandi */
                             }
                         </style>
                     </div>

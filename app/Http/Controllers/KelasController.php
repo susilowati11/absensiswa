@@ -73,10 +73,6 @@ class KelasController extends Controller
             // Menggunakan metode findOrFail untuk menemukan kelas berdasarkan ID
             $kelas = Kelas::findOrFail($id);
 
-            // // Mengecek apakah kelas masih memiliki siswa terkait
-            // if ($kelas->siswa()->exists()) {
-            // }
-
             // Menghapus kelas dari database
             $kelas->delete();
 

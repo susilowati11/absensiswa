@@ -1,7 +1,6 @@
 @extends('layouts.sidebar')
 @section('content')
     <div class="content">
-        <!-- Navbar Start -->
         <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
             <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                 <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
@@ -22,7 +21,7 @@
         </nav>
         <div class="container">
             <div class="card mt-3 mx-auto" style="max-width: 1000px; width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
-                <div class="card-header bg-primary text-white"> <!-- Mengganti bg-light dengan bg-primary dan text-white -->
+                <div class="card-header bg-primary text-white">
                     <h5 class="text-center">Notifikasi Siswa</h5>
                 </div>
                 <div class="card-body p-3">
