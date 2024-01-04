@@ -92,7 +92,7 @@ class RegisterController extends Controller
             'foto.max' => 'Ukuran foto maksimal 2MB.',
         ]);
 
-        return "halo";
+        return "Halo";
     }
 
     /**
