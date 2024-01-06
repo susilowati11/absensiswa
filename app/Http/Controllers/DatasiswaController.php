@@ -96,24 +96,19 @@ class DatasiswaController extends Controller
     public function update(Request $request, $user_id)
     {
         // Mendapatkan objek Datasiswa berdasarkan $user_id
-        $datasiswa = Datasiswa::where('user_id', $user_id)->first();
-    
-        // Handle jika Datasiswa tidak ditemukan
-        if (!$datasiswa) {
-            return redirect()->back()->with('error', 'Data not found for ID: ' . $user_id);
-        }
+        $datasiswa = Datasiswa::where('user_id', $user_id)->first(); 
     
         // Validasi email unik untuk Datasiswa
         if ($datasiswa->user) {
             $existingUser = User::where('email', $request->input('email'))
-                                ->where('id', '<>', $datasiswa->user->id)
+                               
                                 ->first();
     
-            if ($existingUser) {
+            
                 // Jika email sudah digunakan oleh pengguna lain
                 return redirect()->back()->with('error', 'Email sudah digunakan oleh pengguna lain. Silakan gunakan email lain.');
-            }
-        }
+            
+        }       
     
         // Validasi data untuk mengupdate Datasiswa
         $validator = Validator::make($request->all(), [
