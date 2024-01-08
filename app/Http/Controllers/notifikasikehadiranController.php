@@ -15,7 +15,6 @@ class notifikasikehadiranController extends Controller
     public function index()
     {
         $notifikasikehadiran = NotifikasiKehadiran::all();
-        // $siswa = Siswa::all(); // Ambil semua data siswa
         $kelas = Kelas::all(); // Ambil semua data kelas
         $user = User::all();
         return view('Admin.notifikasikehadiran', compact('notifikasikehadiran', 'kelas','user'));

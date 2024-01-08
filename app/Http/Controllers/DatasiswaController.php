@@ -101,10 +101,7 @@ class DatasiswaController extends Controller
         // Validasi email unik untuk Datasiswa
         if ($datasiswa->user) {
             $existingUser = User::where('email', $request->input('email'))
-                               
-                                ->first();
-    
-            
+            ->first();
                 // Jika email sudah digunakan oleh pengguna lain
                 return redirect()->back()->with('error', 'Email sudah digunakan oleh pengguna lain. Silakan gunakan email lain.');
             

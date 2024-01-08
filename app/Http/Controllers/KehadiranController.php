@@ -64,16 +64,16 @@ class KehadiranController extends Controller
         }
     }
 
-    public function destroy($id)
-    {
-        try {
-            $kehadiran = Kehadiran::findOrFail($id);
+    // public function destroy($id)
+    // {
+    //     try {
+    //         $kehadiran = Kehadiran::findOrFail($id);
 
-            $kehadiran->delete();
+    //         $kehadiran->delete();
 
-            return redirect()->back()->with('success', 'Kehadiran berhasil dihapus');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus kehadiran');
-        }
-    }
+    //         return redirect()->back()->with('success', 'Kehadiran berhasil dihapus');
+    //     } catch (\Exception $e) {
+    //         return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus kehadiran');
+    //     }
+    // }
 }

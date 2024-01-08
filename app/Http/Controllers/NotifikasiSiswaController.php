@@ -21,12 +21,15 @@ class NotifikasiSiswaController extends Controller
             // Proses menyimpan kehadiran
             // ...
             $siswa_id = $request->siswa_id;
+            $jenis_notifikasi = $request->jenis_notifikasi;
+            $tanggal_notifikasi = $request->tanggal_notifikasi;
+            $informasi_tambahan = $request->informasi_tambahan;
             // Tambahkan notifikasi
             $notifikasiKehadiran = NotifikasiKehadiran::create([
                 'siswa_id' => $siswa_id, // Ganti dengan ID siswa yang sesuai
-                'jenis_notifikasi' => '...',
-                'tanggal_notifikasi' => '...',
-                'informasi_tambahan' => '...',
+                'jenis_notifikasi' =>  $jenis_notifikasi,
+                'tanggal_notifikasi' =>  $tanggal_notifikasi,
+                'informasi_tambahan' =>  $informasi_tambahan,
             ]);
 
             // Tambahkan notifikasi siswa
