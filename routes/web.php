@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [NotifikasiSiswaController::class, 'index'])->name('notifikasi-siswa');
         });
         Route::get('/upload-foto/upload-photo/{id}', [ProfileController::class, 'index'])->name('upload-photo.show');
-        Route::put('/upload-foto/upload-photo/{id}', [ProfileController::class, 'index'])->name('upload-photo.update');
+        Route::put('/upload-foto/upload-photo/{id}', [ProfileController::class, 'index'])->name('upload-photo.update');     
         
     });
 

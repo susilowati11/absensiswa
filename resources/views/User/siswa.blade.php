@@ -88,8 +88,9 @@
                                 $user = auth()->user();
                             @endphp
 
-                            <form action="{{ route('upload-photo.show', ['id' => $user->id]) }}" method="POST"
+                            <form action="{{ route('upload-photo.update', ['id' => $user->id]) }}" method="POST"
                                 enctype="multipart/form-data">
+                                @method('PUT')
                                 @csrf
                                 <div class="form-group mt-3 text-center">
                                     <label for="foto">Unggah Foto Baru:</label>

@@ -17,7 +17,7 @@ class KehadiranController extends Controller
 
         $user = User::where('id', $userId)->get();
 
-        $kehadiran = Kehadiran::where('user_id', $userId)->get();
+        $kehadiran = Kehadiran::where('user_id', $userId)->get();         //mencari kehadiran User berdasarkan user_id yang disimpan dalam variabel $userId
 
         $kelas = Kelas::all();
 
@@ -28,7 +28,7 @@ class KehadiranController extends Controller
     {
         $time = Carbon::now();
 
-        if ($time->diffInHours(Carbon::now()) < 18) {
+        if ($time->diffInHours(Carbon::now()) < 18) {     //membandingkan selisih waktu antara $time dan waktu saat ini 
             $status = 'Hadir';
         } else {
             $status = 'Tidak Hadir';

@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('nama_siswa');
             $table->string('nis');
-            $table->foreignId('kelas_id')->references('id')->on('kelas')->onUpdate('cascade')->onDelete('cascade'); // Menambahkan foreign key ke tabel siswa
+            $table->foreignId('kelas_id')->constrained('kelas')->onUpdate('cascade')->onDelete('cascade'); // Menambahkan foreign key ke tabel siswa
             $table->string('jenis_kelamin');
             $table->date('tanggal_lahir');
             $table->text('alamat');
             $table->string('nomor_telepon');
             $table->string('email');
             $table->string('foto');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -34,9 +34,9 @@ class ProfileController extends Controller
             // Update user with the new photo path
             $user->update(['foto' => $fotoPath]);
             // dd($user);
-            return redirect()->route('upload-photo', ['id' => $user->id])->with('success', 'Foto profil berhasil diunggah.');
+            return redirect()->route('upload-photo.show', ['id' => $user->id])->with('success', 'Foto profil berhasil diunggah.');
         } catch (\Exception $e) {
-            return redirect()->route('upload-photo', ['id' => $user->id])->with('error', 'Failed to upload photo: ' . $e->getMessage());
+            return redirect()->route('upload-photo.show', ['id' => $user->id])->with('error', 'Failed to upload photo: ' . $e->getMessage());
         }
     }
 
