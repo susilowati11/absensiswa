@@ -16,12 +16,8 @@ return new class extends Migration
             $table->string('jenis_notifikasi');
             $table->date('tanggal_notifikasi');
             $table->text('informasi_tambahan')->nullable();
-            // Foreign key to Kelas table
-            $table->unsignedBigInteger('kelas_id');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
+            $table->foreignId('kelas_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

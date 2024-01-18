@@ -16,15 +16,10 @@ class NotifikasiSiswa extends Model
         'notifikasikehadiran_id',
     ];
 
-    // Relasi dengan model Siswa
-    // Model NotifikasiSiswa
     public function notifikasiKehadiran()
     {
-        return $this->belongsTo(NotifikasiKehadiran::class, 'notifikasikehadiran_id');
-    }
-
-    public function siswa()
-    {
-        return $this->belongsTo(Siswa::class, 'siswa_id');
+        // belongsTo adalah relasi dari banyak kesatu,
+        //digunakan pada model "anak" untuk menunjukkan bahwa satu model "anak" dimiliki oleh satu model "induk.
+        return $this->belongsTo(NotifikasiKehadiran::class);
     }
 }

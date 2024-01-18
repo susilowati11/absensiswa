@@ -44,14 +44,11 @@ class RiwayatkehadiranController extends Controller
                 // Periksa apakah siswa sudah melakukan absen hari ini
                 if (!$data->kehadiran()->whereDate('created_at', $hariIni)->exists()) {
 
-
                     Kehadiran::create([
                         'user_id' => $data->id,
 
-
                         'status_kehadiran' => 'tidak hadir',
-
-
+                        
                         'kelas_id' => $data->kelas->id // Menyimpan kelas_id
                     ]);
                 }

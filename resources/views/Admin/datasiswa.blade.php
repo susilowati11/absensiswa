@@ -51,34 +51,31 @@
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">{{ $siswa->name }}</td>
                                     <td class="text-center">{{ $siswa->nis }}</td>
-                                    <td class="text-center">{{ $siswa->kelas->tingkat_kelas }} - {{ $siswa->kelas->jurusan }} </td>
+                                    <td class="text-center">{{ $siswa->kelas->tingkat_kelas }} - {{ $siswa->kelas->jurusan }}</td>
                                     <td class="text-center">{{ $siswa->jenis_kelamin }}</td>
                                     <td class="text-center">{{ $siswa->tanggal_lahir }}</td>
                                     <td class="text-center">{{ $siswa->alamat }}</td>
                                     <td class="text-center">{{ $siswa->no_tlp }}</td>
                                     <td class="text-center">{{ $siswa->email }}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-warning btn-sm me-auto" data-bs-toggle="modal"
-                                                data-bs-target="#editModal{{ $siswa->id }}" style="font-size: 0.8rem;">
+                                        <button class="btn btn-warning btn-sm me-auto" data-bs-toggle="modal" data-bs-target="#editModal{{ $siswa->id }}" style="font-size: 0.8rem;">
                                             <i class="fas fa-pen"></i> Edit
                                         </button>
-                                    
+                        
                                         <form action="{{ route('destroy', $siswa->id) }}" method="post" class="mt-2">
                                             @method('DELETE')
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm" id="btn-delete"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" style="font-size: 0.8rem;">
+                                            <button type="submit" class="btn btn-danger btn-sm" id="btn-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" style="font-size: 0.8rem;">
                                                 <i class="fas fa-trash"></i> Hapus
                                             </button>
                                         </form>
-                                    </td>  
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-            </div>
-            
+            </div>          
 
         <!-- Modal Tambah Siswa -->
         <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

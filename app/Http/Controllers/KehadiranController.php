@@ -31,7 +31,6 @@ class KehadiranController extends Controller
         if ($time->diffInHours(Carbon::now()) < 18) {
             $status = 'Hadir';
         } else {
-
             $status = 'Tidak Hadir';
         }
 
@@ -63,17 +62,4 @@ class KehadiranController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
-
-    // public function destroy($id)
-    // {
-    //     try {
-    //         $kehadiran = Kehadiran::findOrFail($id);
-
-    //         $kehadiran->delete();
-
-    //         return redirect()->back()->with('success', 'Kehadiran berhasil dihapus');
-    //     } catch (\Exception $e) {
-    //         return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus kehadiran');
-    //     }
-    // }
 }

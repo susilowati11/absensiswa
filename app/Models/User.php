@@ -59,7 +59,7 @@ class User extends Authenticatable
     // Update the relationship to use hasOne
     public function datasiswa()
     {
-        return $this->hasOne(Datasiswa::class, 'user_id');
+        return $this->hasOne(Datasiswa::class);
     }
     
 }

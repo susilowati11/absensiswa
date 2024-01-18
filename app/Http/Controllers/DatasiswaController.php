@@ -99,12 +99,13 @@ class DatasiswaController extends Controller
         $datasiswa = Datasiswa::where('user_id', $user_id)->first(); 
     
         // Validasi email unik untuk Datasiswa
-        if ($datasiswa->user) {
-            $existingUser = User::where('email', $request->input('email'))
-            ->first();
-                // Jika email sudah digunakan oleh pengguna lain
+        if ($datasiswa->user && $datasiswa->user->email != $request->input('email')) {
+            $existingUser = User::where('email', $request->input('email'))->first();
+    
+            // Jika email sudah digunakan oleh pengguna lain
+            if ($existingUser) {
                 return redirect()->back()->with('error', 'Email sudah digunakan oleh pengguna lain. Silakan gunakan email lain.');
-            
+            }
         }       
     
         // Validasi data untuk mengupdate Datasiswa
@@ -156,6 +157,7 @@ class DatasiswaController extends Controller
         return redirect()->back()->with('success', 'Data Berhasil diupdate');
     }
     
+    
 
    public function destroy($user_id)
     {
@@ -175,14 +177,9 @@ class DatasiswaController extends Controller
         // Hapus juga record pada tabel users
         User::where('id', $user_id)->delete();
 
-        // Hapus file foto (dari tabel user) terkait
+        // Hapus file foto (dari tabel user) terkait jika keadtrue baru blok if jalan
         if ($userFotoToDelete && Storage::disk('public')->exists($userFotoToDelete)) {
             Storage::disk('public')->delete($userFotoToDelete);
-        }
-
-        // Hapus file foto (dari folder siswa_foto) terkait
-        if ($siswaFotoToDelete && Storage::disk('public')->exists($siswaFotoToDelete)) {
-            Storage::disk('public')->delete($siswaFotoToDelete);
         }
 
         return redirect()->back()->with('success', 'Data siswa dan user berhasil dihapus');

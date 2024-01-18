@@ -15,11 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_siswa')->nullable();
             $table->enum('status_kehadiran', ['Hadir', 'Tidak Hadir'])->default('Hadir');
-            $table->unsignedBigInteger('kelas_id')->nullable();
-
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('kelas_id')->references('id')->on('kelas');
+            $table->foreignId('kelas_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -88,7 +88,7 @@
                                 $user = auth()->user();
                             @endphp
 
-                            <form action="{{ route('upload-photo', ['id' => $user->id]) }}" method="POST"
+                            <form action="{{ route('upload-photo.show', ['id' => $user->id]) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group mt-3 text-center">

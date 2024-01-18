@@ -31,13 +31,13 @@ class Kelas extends Model
 
     public function user()
     {
-        return $this->hasMany(User::class, 'kelas_id', 'id');
+        return $this->hasMany(User::class);
     }
 
     
     public function kehadiran()
     {
-        return $this->hasMany(Kehadiran::class, 'kelas_id', 'id');
+        return $this->hasMany(Kehadiran::class);
     }
 
 }

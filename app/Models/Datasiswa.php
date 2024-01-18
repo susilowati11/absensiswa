@@ -11,6 +11,7 @@ class Datasiswa extends Model
     use HasFactory;
 
     protected $table = 'datasiswa';
+    //mengisilabel
     protected $fillable = [ 
     'user_id',
     'nama_siswa',

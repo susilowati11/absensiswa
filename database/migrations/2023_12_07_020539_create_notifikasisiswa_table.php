@@ -11,12 +11,9 @@ return new class extends Migration
         if (!Schema::hasTable('notifikasisiswa')) {
             Schema::create('notifikasisiswa', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('siswa_id')->constrained('siswa');
-                $table->unsignedBigInteger('notifikasikehadiran_id');
+                $table->foreignId('notifikasikehadiran_id')->constrained('notifikasikehadiran')->onDelete('cascade')->onUpdate('cascade');
                 $table->timestamps();
-                $table->foreign('notifikasikehadiran_id')->references('id')->on('notifikasikehadiran')->onDelete('cascade');
             });
-            
         }
     }
 
@@ -25,4 +22,3 @@ return new class extends Migration
         Schema::dropIfExists('notifikasisiswa');
     }
 };
-

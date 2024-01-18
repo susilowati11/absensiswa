@@ -23,6 +23,7 @@ class notifikasikehadiranController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         $validatedData = $request->validate([
                 'id_siswa' => 'required',
                 'kelas_id' => 'required',

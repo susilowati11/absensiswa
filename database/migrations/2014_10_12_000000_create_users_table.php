@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('tanggal_lahir')->nullable();
             $table->string('alamat')->nullable();
             $table->string('no_tlp')->nullable();
-            $table->unsignedBigInteger('kelas_id')->nullable();
+            $table->foreignId('kelas_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('foto')->nullable();
             $table->rememberToken();
             $table->timestamps();

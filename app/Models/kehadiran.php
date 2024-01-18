@@ -19,17 +19,13 @@ class Kehadiran extends Model
     ];
 
 
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
 
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class);
+        return $this->belongsTo(Kelas::class);//kalau ditabel anak menggunakan belongsTo
     }
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class);
     }
 }

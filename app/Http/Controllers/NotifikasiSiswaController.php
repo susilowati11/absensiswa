@@ -11,7 +11,7 @@ class NotifikasiSiswaController extends Controller
 {
     public function index()
     {
-        $notifikasiSiswa = NotifikasiKehadiran::where('user_id',auth()->user()->id)->get();   
+        $notifikasiSiswa = NotifikasiKehadiran::where('user_id', auth()->user()->id)->get();
         return view('user.notifikasisiswa', compact('notifikasiSiswa'));
     }
 
@@ -19,11 +19,12 @@ class NotifikasiSiswaController extends Controller
     {
         try {
             // Proses menyimpan kehadiran
-            // ...
+
             $siswa_id = $request->siswa_id;
             $jenis_notifikasi = $request->jenis_notifikasi;
             $tanggal_notifikasi = $request->tanggal_notifikasi;
             $informasi_tambahan = $request->informasi_tambahan;
+
             // Tambahkan notifikasi
             $notifikasiKehadiran = NotifikasiKehadiran::create([
                 'siswa_id' => $siswa_id, // Ganti dengan ID siswa yang sesuai
@@ -31,6 +32,7 @@ class NotifikasiSiswaController extends Controller
                 'tanggal_notifikasi' =>  $tanggal_notifikasi,
                 'informasi_tambahan' =>  $informasi_tambahan,
             ]);
+
 
             // Tambahkan notifikasi siswa
             $notifikasiSiswa = NotifikasiSiswa::create([
@@ -41,11 +43,8 @@ class NotifikasiSiswaController extends Controller
 
             // Hubungkan notifikasi_siswa dengan kehadiran
             Kehadiran::where('notifikasi_siswa_id', $notifikasiKehadiran->id)->update(['notifikasi_siswa_id' => $notifikasiSiswa->id]);
-
-            // Redirect atau kembali ke halaman yang sesuai
-            // ...
         } catch (\Exception $e) {
-            dd($e->getMessage()); // Tampilkan pesan kesalahan
+            ($e->getMessage()); // Tampilkan pesan kesalahan
         }
     }
 }

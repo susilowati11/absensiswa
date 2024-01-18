@@ -20,22 +20,17 @@ class NotifikasiKehadiran extends Model
         'user_id',
     ];
 
-    // // Relasi ke model Siswa
-    // public function siswa()
-    // {
-    //     return $this->belongsTo(Siswa::class, 'siswa_id');
-    // }
 
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class, 'kelas_id');
+        return $this->belongsTo(Kelas::class);
     }
     public function notifikasiSiswa()
     {
-        return $this->hasMany(NotifikasiSiswa::class, 'notifikasikehadiran_id');
+        return $this->hasMany(NotifikasiSiswa::class);
     }
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class);
     }
 }

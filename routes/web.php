@@ -34,17 +34,14 @@ Auth::routes();
 
 Route::middleware('auth')->group(function () {
     Route::get('/',[HomeController::class,'index'])->name('home');
-    // routes/web.php
-    
+    // routes/web.php   
                                           
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    Route::middleware([usermiddleware::class])->group(function () {
+    Route::middleware('user')->prefix('user')->group(function () {
         Route::prefix('siswa')->group(function () {
             Route::get('/', [SiswaController::class, 'index'])->name('siswa');
-            Route::post('/siswa', [SiswaController::class, 'siswa'])->name('create.siswa');
-            Route::put('/update/{id_siswa}', [SiswaController::class, 'update'])->name('siswa.update');
-            Route::delete('/destroy/{id_siswa}', [SiswaController::class, 'destroy'])->name('siswa.destroy');
+
         });
         Route::prefix('kehadiran')->group(function () {
             Route::get('/', [KehadiranController::class, 'index'])->name('kehadiran');
@@ -55,20 +52,14 @@ Route::middleware('auth')->group(function () {
         Route::prefix('notifikasi-siswa')->group(function () {
             Route::get('/', [NotifikasiSiswaController::class, 'index'])->name('notifikasi-siswa');
         });
-
-        Route::get('/upload-foto/upload-photo/{id}', [ProfileController::class, 'index'])->name('upload-photo');
-        Route::put('/upload-foto/upload-photo/{id}', [ProfileController::class, 'index'])->name('upload-photo');
-
-        // Route::prefix('upload-foto')->group(function () {
-        // // Route::post('/upload-photo/{id}', [ProfileController::class,'index'])->name('upload-photo');
-        // // Route::resource('/upload-photo', ProfileController::class);
-        // Route::post('/upload-foto/upload-photo/{id}', [ProfileController::class, 'index'])->name('upload-photo');
-        // });
+        Route::get('/upload-foto/upload-photo/{id}', [ProfileController::class, 'index'])->name('upload-photo.show');
+        Route::put('/upload-foto/upload-photo/{id}', [ProfileController::class, 'index'])->name('upload-photo.update');
+        
     });
 
 
 
-    Route::middleware([adminmiddleware::class])->group(function () {
+    Route::middleware('admin')->prefix('admin')->group(function () {
         Route::prefix('kelas')->group(function () {
             Route::get('/', [KelasController::class, 'index'])->name('kelas');
             Route::post('/store', [KelasController::class, 'store'])->name('kelas.store');
@@ -80,7 +71,6 @@ Route::middleware('auth')->group(function () {
             Route::post('notifikasikehadiran/store', [NotifikasiKehadiranController::class, 'store'])->name('notifikasikehadiran.store');
             Route::put('notifikasikehadiran/update/{id} ', [notifikasiKehadirancontroller::class, 'update'])->name('notifikasikehadiran.update');
             Route::delete('/destroy/{id}', [notifikasikehadiranController::class, 'destroy'])->name('notifikasikehadiran.destroy');
-            // Tambahkan rute lainnya sesuai kebutuhan
         });
         Route::prefix('riwayatkehadiran')->group(function () {
             Route::get('/', [RiwayatkehadiranController::class, 'index'])->name('riwayatkehadiran');
@@ -94,3 +84,4 @@ Route::middleware('auth')->group(function () {
         });
     });
 });
+// ([usermiddleware::class])

@@ -26,29 +26,6 @@ class Siswa extends Model
         'user_id',
         'kehadiran',
     ];
-
-    public function kelas()
-    {
-        return $this->belongsTo(Kelas::class);
-    }
-    public function riwayatKehadiran()
-    {
-        return $this->hasMany(riwayatKehadiran::class, 'siswa_id');
-    }
-    public function NotifikasiKehadiran()
-    {
-        return $this->hasMany(NotifikasiKehadiran::class, 'siswa_id');
-    }
-    public function kehadiran()
-    {
-        return $this->belongsTo(Kehadiran::class,);
-    }
-
-    
-    public function notifikasiSiswa()
-    {
-        return $this->hasMany(NotifikasiSiswa::class, 'siswa_id');
-    }
     public function user()
     {
         return $this->belongsTo(User::class);
